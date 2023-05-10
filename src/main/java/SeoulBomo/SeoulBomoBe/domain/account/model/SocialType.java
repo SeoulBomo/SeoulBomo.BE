@@ -3,6 +3,7 @@ package SeoulBomo.SeoulBomoBe.domain.account.model;
 import org.springframework.http.HttpMethod;
 
 public enum SocialType {
+
     KAKAO(
             "kakao",
             "https://kapi.kakao.com/v2/user/me",
@@ -23,4 +24,5 @@ public enum SocialType {
         this.socialUrl = socialUrl;
         this.httpMethod = httpMethod;
     }
+
 }

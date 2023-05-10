@@ -1,4 +1,4 @@
-package SeoulBomo.SeoulBomoBe.domain.childcareInfo.model;
+package SeoulBomo.SeoulBomoBe.domain.childCareInfo.model;
 
 import SeoulBomo.SeoulBomoBe.common.Borough;
 import SeoulBomo.SeoulBomoBe.domain.like.model.ChildCareLike;

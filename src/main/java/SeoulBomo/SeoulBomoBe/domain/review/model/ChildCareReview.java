@@ -1,7 +1,7 @@
 package SeoulBomo.SeoulBomoBe.domain.review.model;
 
 import SeoulBomo.SeoulBomoBe.domain.account.model.Account;
-import SeoulBomo.SeoulBomoBe.domain.childcareInfo.model.ChildCareInfo;
+import SeoulBomo.SeoulBomoBe.domain.childCareInfo.model.ChildCareInfo;
 import jakarta.persistence.*;
 import lombok.*;
 
