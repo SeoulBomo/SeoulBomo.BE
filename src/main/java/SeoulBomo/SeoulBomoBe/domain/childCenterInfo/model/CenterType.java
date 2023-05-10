@@ -1,4 +1,4 @@
-package SeoulBomo.SeoulBomoBe.domain.ChildCenterInfo.model;
+package SeoulBomo.SeoulBomoBe.domain.childCenterInfo.model;
 
 public enum CenterType {
     CARE_CENTER("우리동네키움센터"),

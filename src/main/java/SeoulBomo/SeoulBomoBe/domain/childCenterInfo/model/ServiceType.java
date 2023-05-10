@@ -1,4 +1,4 @@
-package SeoulBomo.SeoulBomoBe.domain.ChildCenterInfo.model;
+package SeoulBomo.SeoulBomoBe.domain.childCenterInfo.model;
 
 public enum ServiceType {
     COMMON("일반");

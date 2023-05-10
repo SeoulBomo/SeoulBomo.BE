@@ -1,6 +1,6 @@
 package SeoulBomo.SeoulBomoBe.domain.like.model;
 
-import SeoulBomo.SeoulBomoBe.domain.ChildCenterInfo.model.ChildCenterInfo;
+import SeoulBomo.SeoulBomoBe.domain.childCenterInfo.model.ChildCenterInfo;
 import SeoulBomo.SeoulBomoBe.domain.account.model.Account;
 import jakarta.persistence.*;
 import lombok.*;
