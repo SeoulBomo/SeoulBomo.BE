@@ -32,6 +32,9 @@ dependencies {
 
 	//mySQL
 	runtimeOnly("com.mysql:mysql-connector-j")
+
+	//JSON
+	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
 }
 
 tasks.named('test') {
