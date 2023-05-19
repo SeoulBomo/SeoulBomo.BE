@@ -49,4 +49,33 @@ public class ChildCenterInfo {
     // 아동 센터 정보(1) - 아동 센터 리뷰(다)
     @OneToMany(mappedBy = "childCenterInfo", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ChildCenterReview> childCenterReviews = new ArrayList<>();
+
+    public ChildCenterInfo(String sigunname, CenterType center, String crtypename, String crname,
+                           String craddr, String crtelno, String crhome, String nrtrroomcnt, String plgrdco,
+                           String cctvinstlcnt, String chcrtescnt, String la, String lo, String schoolbus,
+                           String free, String satopen, String fee, String services) {
+        this.borough = Borough.getName(sigunname);
+        this.centerType = center;
+        this.preschoolType = PreschoolType.getType(crtypename);
+        this.name = crname;
+        this.address = craddr;
+        this.contactNumber = crtelno;
+        this.homepage = crhome;
+        this.classNum = Integer.valueOf(nrtrroomcnt);
+        this.playgroundNum = Integer.valueOf(plgrdco);
+        this.cctvNum = Integer.valueOf(cctvinstlcnt);
+        this.teacherNum = Integer.valueOf(chcrtescnt);
+        this.latitude = Double.valueOf(la);
+        this.longitude = Double.valueOf(lo);
+        this.isSchoolBus = change(schoolbus);
+        this.isFree = change(free);
+        this.isSatOpen = change(satopen);
+        this.fee = fee;
+        this.serviceType = ServiceType.getType(services);
+    }
+
+    public static Boolean change(String s){
+        if(s.equals("Y") || s.equals("y")) return true;
+        else return false;
+    }
 }

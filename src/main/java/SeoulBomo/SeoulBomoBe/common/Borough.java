@@ -1,5 +1,8 @@
 package SeoulBomo.SeoulBomoBe.common;
 
+import lombok.Getter;
+
+@Getter
 public enum Borough { // 자치구
 
     GANGNAM("강남구"),
@@ -31,6 +34,15 @@ public enum Borough { // 자치구
 
     Borough(String detail) {
         this.detail = detail;
+    }
+
+    public static Borough getName(String name){
+        for(Borough b : values()){
+            if(b.detail.equals(name)){
+                return b;
+            }
+        }
+        return null;
     }
 
 }
