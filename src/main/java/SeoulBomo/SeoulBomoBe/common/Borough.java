@@ -28,7 +28,8 @@ public enum Borough { // 자치구
     EUNPYEONG("은평구"),
     JONGNO("종로구"),
     JUNG("중구"),
-    JUNGNANG("중랑구");
+    JUNGNANG("중랑구"),
+    ETC("기타");
 
     private String detail;
 
@@ -62,8 +63,8 @@ public enum Borough { // 자치구
             case "종로구" -> JONGNO;
             case "중구" -> JUNG;
             case "중랑구" -> JUNGNANG;
+            case "기타" -> ETC;
             default -> null;
         };
     }
-
 }

@@ -1,6 +1,10 @@
 package SeoulBomo.SeoulBomoBe.domain.childCareInfo.service;
 
 import SeoulBomo.SeoulBomoBe.common.Borough;
+import SeoulBomo.SeoulBomoBe.common.dto.PageResponse;
+import SeoulBomo.SeoulBomoBe.common.exception.StatusCode;
+import SeoulBomo.SeoulBomoBe.domain.childCareInfo.dto.ChildCareInfoDto.*;
+import SeoulBomo.SeoulBomoBe.domain.childCareInfo.exception.ChildCareInfoException;
 import SeoulBomo.SeoulBomoBe.domain.childCareInfo.model.AgeType;
 import SeoulBomo.SeoulBomoBe.domain.childCareInfo.model.ChildCareInfo;
 import SeoulBomo.SeoulBomoBe.domain.childCareInfo.model.InfoType;
@@ -10,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -21,10 +26,20 @@ import java.net.URL;
 @Service
 @RequiredArgsConstructor
 public class ChildCareInfoService {
-    private final ChildCareInfoRepository childCareInfoRepository;
 
-    Borough borough = null;
-    AgeType ageType = null;
+    private final ChildCareInfoRepository childCareInfoRepository;
+  /*  private final ChildCareReviewRepository childCareReviewRepository;
+    private final ChildCareLikeRepository childCareLikeRepository;*/
+
+    public PageResponse<ChildCareInfoListResponse> getChildCareInfoList(Pageable pageable, ChildCareInfoListRequest childCareInfoListRequest) {
+        InfoType infoType = InfoType.valueOf(childCareInfoListRequest.infoType());
+        AgeType ageType = AgeType.valueOf(childCareInfoListRequest.ageType());
+        if (ageType.equals(AgeType.ALL))
+            return PageResponse.of(childCareInfoRepository.findAllByInfoType(pageable, infoType).map(ChildCareInfoListResponse::of));
+
+        return PageResponse.of(childCareInfoRepository.findAllByInfoTypeAndAgeType(pageable, infoType, ageType).map(ChildCareInfoListResponse::of));
+    }
+
 
     public String saveChildCareInfo() {
         for (int j = 0; j < 5; j++) {
@@ -57,16 +72,11 @@ public class ChildCareInfoService {
                     try {
                         JSONObject temp = (JSONObject) preInfoArray.get(i);
                         String boroughValue = (String) temp.get("ATDRC_NM");
-                        try {
-                            borough = Borough.findByDetail(boroughValue);
-                        } catch (IllegalArgumentException ignored) {
-                        }
-
+                        Borough borough = Borough.findByDetail(boroughValue);
+                        if (borough == null) continue;
                         String ageTypeValue = (String) temp.get("AGE_SE_NM");
-                        try {
-                            ageType = AgeType.findByDetail(ageTypeValue);
-                        } catch (IllegalArgumentException ignored) {
-                        }
+                        AgeType ageType = AgeType.findByDetail(ageTypeValue);
+                        if (ageType == null) ageType = AgeType.ALL;
                         ChildCareInfo childCareInfo = new ChildCareInfo(
                                 (String) temp.get("CLTUR_EVENT_ETC_NM"),
                                 infoType,
@@ -86,8 +96,6 @@ public class ChildCareInfoService {
                     } catch (NumberFormatException e) {
                         e.printStackTrace();
                         i++;
-                    } catch (Exception e) {
-                        throw e;
                     }
                 }
             } catch (Exception e) {
@@ -95,5 +103,16 @@ public class ChildCareInfoService {
             }
         }
         return "success";
+    }
+
+    public ChildCareInfoResponse getChildCareInfo(Long childCareInfoId) {
+        ChildCareInfo childCareInfo = childCareInfoRepository.findById(childCareInfoId)
+                .orElseThrow(() -> new ChildCareInfoException(StatusCode.NOT_FOUND_CHILDCARE));
+        //return ChildCareInfoResponse.of(childCareInfo, childCareReviewRepository.countByChildCareInfo(), childCareLikeRepository.countByChildCareInfo());
+        return ChildCareInfoResponse.of(childCareInfo, 0L, 0L);
+    }
+
+    public PopularChildCareInfoRespose getChildCareInfoListByPopularity() {
+        return PopularChildCareInfoRespose.of(childCareInfoRepository.findTop7ByOrderById().stream().map(ChildCareInfoSimpleResponse::of).toList());
     }
 }

@@ -1,5 +1,8 @@
 package SeoulBomo.SeoulBomoBe.domain.childCareInfo.model;
 
+import lombok.Getter;
+
+@Getter
 public enum AgeType {
 
     INFANT("영유아"),
