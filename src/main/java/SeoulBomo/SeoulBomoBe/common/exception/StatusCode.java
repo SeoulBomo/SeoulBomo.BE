@@ -26,12 +26,7 @@ public enum StatusCode {
     INVALID_INPUT_VALUE(400, 9010, "invalid input value."),
     METHOD_NOT_ALLOWED(405, 9020, "method not allowed."),
     HTTP_CLIENT_ERROR(400, 9030, "http client error."),
-    AWS_S3_UPLOAD_FAIL(400, 9040, "AWS S3 upload fail."),
-    AWS_S3_DELETE_FAIL(400, 9050, "AWS S3 delete fail."),
-    AWS_S3_FILE_SIZE_EXCEEDED(400, 9060, "exceeded file size."),
-    PAUSED_ACCOUNT(400, 9070, "paused account error."),
-    BANNED_ACCOUNT(400, 9080, "banned account error."),
-    PERMANENTLY_BANNED_ACCOUNT(400, 9090, "permanently banned account error."),
+
 
     ;
     private int httpCode;
