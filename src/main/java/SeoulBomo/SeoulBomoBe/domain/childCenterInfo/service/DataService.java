@@ -1,26 +1,25 @@
-package SeoulBomo.SeoulBomoBe.common.article;
+package SeoulBomo.SeoulBomoBe.domain.childCenterInfo.service;
 
 import SeoulBomo.SeoulBomoBe.domain.childCenterInfo.model.CenterType;
 import SeoulBomo.SeoulBomoBe.domain.childCenterInfo.model.ChildCenterInfo;
+import SeoulBomo.SeoulBomoBe.domain.childCenterInfo.repository.DataRepository;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 
-@RestController
-public class DataController {
+@Service
+public class DataService {
 
     @Autowired
     private DataRepository dataRepository;
 
-    @PostMapping("/child-center/pre-school")
-    public String savePreSchool(){
+    public String savePreSchoolInfo() {
         String result = "";
 
         try{
@@ -36,9 +35,6 @@ public class DataController {
             JSONObject jsonObject = (JSONObject) jsonParser.parse(result);
             JSONObject preSchoolInfo = (JSONObject) jsonObject.get("ChildCareInfo");
             JSONArray preInfoArray = (JSONArray) preSchoolInfo.get("row");
-
-            //Long totalCount = (Long)preSchoolInfo.get("list_total_count");
-            //JSONObject subResult = (JSONObject) preSchoolInfo.get("RESULT");
 
             for(int i=0; i<preInfoArray.size(); i++){
                 try{
@@ -78,8 +74,7 @@ public class DataController {
         return result;
     }
 
-    @PostMapping("/child-center/share-center")
-    public String saveShareCenter(){
+    public String saveShareCenterInfo(){
         String result = "";
 
         try{
@@ -134,8 +129,7 @@ public class DataController {
         return result;
     }
 
-    @PostMapping("/child-center/care-center")
-    public String saveCareCenter(){
+    public String saveCareCenterInfo(){
         String result = "";
 
         try{
@@ -157,7 +151,7 @@ public class DataController {
                     JSONObject temp = (JSONObject) careInfoArr.get(i);
                     ChildCenterInfo childCenterInfo = new ChildCenterInfo(
                             (String)temp.get("ATDRC_NM"),
-                            CenterType.SHARE_CENTER,
+                            CenterType.CARE_CENTER,
                             null,
                             (String)temp.get("FCLTY_NM"),
                             (String)temp.get("BASS_ADRES") + (String)temp.get("DETAIL_ADRES"),
