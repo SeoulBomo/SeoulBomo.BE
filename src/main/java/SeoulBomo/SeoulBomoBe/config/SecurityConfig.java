@@ -1,4 +1,5 @@
 package SeoulBomo.SeoulBomoBe.config;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,9 +13,10 @@ public class SecurityConfig {
     @Bean
     protected SecurityFilterChain config(HttpSecurity http) throws Exception {
         return http
+                .csrf().disable()
                 .authorizeHttpRequests(authorize -> authorize
                         .shouldFilterAllDispatcherTypes(false)
-                        .requestMatchers("/","/api/v1/**")
+                        .requestMatchers("/", "/api/v1/**")
                         .permitAll()
                         .anyRequest()
                         .authenticated())
