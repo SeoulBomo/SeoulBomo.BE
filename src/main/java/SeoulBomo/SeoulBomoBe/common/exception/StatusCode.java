@@ -1,9 +1,11 @@
 package SeoulBomo.SeoulBomoBe.common.exception;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Getter
+@RequiredArgsConstructor
 @AllArgsConstructor
 public enum StatusCode {
     // ACCOUNT 1000번대
@@ -32,4 +34,10 @@ public enum StatusCode {
     private int httpCode;
     private int errorCode;
     private String message;
+  
+    StatusCode(int httpCode, int errorCode, String message) {
+        this.httpCode = httpCode;
+        this.errorCode = errorCode;
+        this.message = message;
+    }
 }

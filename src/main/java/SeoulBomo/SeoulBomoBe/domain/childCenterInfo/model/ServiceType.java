@@ -12,4 +12,13 @@ public enum ServiceType {
     ServiceType(String detail) {
         this.detail = detail;
     }
+
+    public static ServiceType getType(String name) {
+        for(ServiceType p : values()){
+            if(p.detail.equals(name)){
+                return p;
+            }
+        }
+        return null;
+    }
 }
