@@ -2,11 +2,9 @@ package SeoulBomo.SeoulBomoBe.common.exception;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.AllArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-@AllArgsConstructor
 public enum StatusCode {
     // ACCOUNT 1000번대
     NOT_FOUND_ACCOUNT(404, 1000, "not found account error."),

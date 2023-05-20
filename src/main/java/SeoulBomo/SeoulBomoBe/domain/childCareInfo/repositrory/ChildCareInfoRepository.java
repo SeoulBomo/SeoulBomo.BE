@@ -6,6 +6,7 @@ import SeoulBomo.SeoulBomoBe.domain.childCareInfo.model.InfoType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -15,4 +16,10 @@ public interface ChildCareInfoRepository extends JpaRepository<ChildCareInfo, Lo
     Page<ChildCareInfo> findAllByInfoType(Pageable pageable, InfoType infoType);
 
     List<ChildCareInfo> findTop7ByOrderById();
+
+    @Query(value = "SELECT * FROM child_care_info c WHERE (c.name LIKE %:keyword% OR c.address LIKE %:keyword%)", nativeQuery = true)
+    Page<ChildCareInfo> findAllByAddressORNameContaining(Pageable pageable, String keyword);
+
+    @Query(value = "SELECT * FROM child_care_info c WHERE (c.name LIKE %:keyword% OR c.address LIKE %:keyword%) LIMIT 5", nativeQuery = true)
+    List<ChildCareInfo> findTop5ByAddressORNameContaining(String keyword);
 }

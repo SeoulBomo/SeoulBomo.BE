@@ -124,4 +124,28 @@ public class ChildCareInfoDto {
             return new PopularChildCareInfoRespose(list);
         }
     }
+
+    public record ChildCareInfoKeywordListResponse(
+            Long id,
+            String name,
+            String borough,
+            String address,
+            String latitude,
+            String longitude
+    ){
+        @Builder
+        public ChildCareInfoKeywordListResponse {
+        }
+
+        public static ChildCareInfoKeywordListResponse of(ChildCareInfo childCareInfo){
+            return ChildCareInfoKeywordListResponse.builder()
+                    .id(childCareInfo.getId())
+                    .name(childCareInfo.getName())
+                    .borough(childCareInfo.getBorough().getDetail())
+                    .address(childCareInfo.getAddress())
+                    .latitude(childCareInfo.getLatitude())
+                    .longitude(childCareInfo.getLongitude())
+                    .build();
+        }
+    }
 }
