@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static SeoulBomo.SeoulBomoBe.domain.childCareInfo.dto.ChildCareInfoDto.*;
 import static SeoulBomo.SeoulBomoBe.domain.childCenterInfo.dto.BoroughDto.*;
 
 @RestController
@@ -67,7 +68,7 @@ public class ChildCenterInfoController {
             @PageableDefault Pageable pageable,
             @RequestParam("keyword") String keyword
     ){
-        PageResponse<ChildCenterKeywordListResponse> result = childCenterInfoService.findKeywordCenterList(pageable, keyword);
+        PageResponse<ChildCareInfoKeywordListResponse> result = childCenterInfoService.findKeywordInfoList(pageable, keyword);
 
         return new ResponseEntity(result, HttpStatus.OK);
     }

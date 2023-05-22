@@ -42,8 +42,8 @@ public class ChildCenterInfoService {
     }
 
     public List<Object> searchKeywordLists(String keyword) {
-        List<ChildCenterInfo> inCenterInfoList = childCenterInfoRepository.findTop5ByAddressORNameContaining(keyword);
-        List<ChildCareInfo> inCareInfoList = childCareInfoRepository.findTop5ByAddressORNameContaining(keyword);
+        List<ChildCenterInfo> inCenterInfoList = childCenterInfoRepository.findTop3ByAddressORNameContaining(keyword);
+        List<ChildCareInfo> inCareInfoList = childCareInfoRepository.findTop3ByAddressORNameContaining(keyword);
 
         List<Object> lists = new ArrayList<>();
         lists.add(inCenterInfoList);

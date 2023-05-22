@@ -22,6 +22,6 @@ public interface ChildCenterInfoRepository extends JpaRepository<ChildCenterInfo
     Page<ChildCenterInfo> findAllByAddressORNameContaining(Pageable pageable, String keyword);
 
     @Query(value = "SELECT * FROM child_center_info c WHERE (c.name LIKE %:keyword% OR c.address LIKE %:keyword%) LIMIT 5", nativeQuery = true)
-    List<ChildCenterInfo> findTop5ByAddressORNameContaining(String keyword);
+    List<ChildCenterInfo> findTop3ByAddressORNameContaining(String keyword);
 
 }
