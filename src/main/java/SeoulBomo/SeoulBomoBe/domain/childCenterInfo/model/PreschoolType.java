@@ -1,5 +1,8 @@
 package SeoulBomo.SeoulBomoBe.domain.childCenterInfo.model;
 
+import lombok.Getter;
+
+@Getter
 public enum PreschoolType {
 
     PUBLIC("국공립"),

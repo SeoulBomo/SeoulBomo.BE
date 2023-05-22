@@ -52,12 +52,13 @@ public class ChildCenterInfoService {
         return lists;
     }
 
-    public ChildCenterInfo findVerifiedCenterInfo(Long id) {
-        Optional<ChildCenterInfo> centerInfo = childCenterInfoRepository.findById(id);
-        ChildCenterInfo result = centerInfo.orElseThrow(() ->
-                new ChildCenterInfoException(StatusCode.NOT_FOUND_CHILDCENTER));
+    public ChildCenterDetailResponse findVerifiedCenterInfo(Long id) {
+        ChildCenterInfo centerInfo = childCenterInfoRepository.findById(id)
+                .orElseThrow(() -> new ChildCenterInfoException(StatusCode.NOT_FOUND_CHILDCARE));
 
-        return result;
+        Long reviewCount = 0L;
+        Long likeCount = 0L;
+        return ChildCenterDetailResponse.of(centerInfo, reviewCount, likeCount);
     }
 
     public PageResponse<ChildCenterBoroughListResponse> findBoroughCenterList(Pageable pageable, ChildCenterBoroughListRequest childCenterBoroughListRequest) {
