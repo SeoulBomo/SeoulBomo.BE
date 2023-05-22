@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 import static SeoulBomo.SeoulBomoBe.domain.childCareInfo.dto.ChildCareInfoDto.*;
-import static SeoulBomo.SeoulBomoBe.domain.childCenterInfo.dto.BoroughDto.*;
+import static SeoulBomo.SeoulBomoBe.domain.childCenterInfo.dto.ChildCenterInfoDto.*;
 
 @RestController
 public class ChildCenterInfoController {
