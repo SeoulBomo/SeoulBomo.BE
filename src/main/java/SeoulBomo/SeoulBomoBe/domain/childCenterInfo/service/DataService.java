@@ -2,7 +2,7 @@ package SeoulBomo.SeoulBomoBe.domain.childCenterInfo.service;
 
 import SeoulBomo.SeoulBomoBe.domain.childCenterInfo.model.CenterType;
 import SeoulBomo.SeoulBomoBe.domain.childCenterInfo.model.ChildCenterInfo;
-import SeoulBomo.SeoulBomoBe.domain.childCenterInfo.repository.DataRepository;
+import SeoulBomo.SeoulBomoBe.domain.childCenterInfo.repository.ChildCenterInfoRepository;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -17,7 +17,7 @@ import java.net.URL;
 public class DataService {
 
     @Autowired
-    private DataRepository dataRepository;
+    private ChildCenterInfoRepository childCenterInfoRepository;
 
     public String savePreSchoolInfo() {
         String result = "";
@@ -59,7 +59,7 @@ public class DataService {
                             "0",
                             (String)temp.get("CRSPEC")
                     );
-                    dataRepository.save(childCenterInfo);
+                    childCenterInfoRepository.save(childCenterInfo);
                 } catch (NumberFormatException e){
                     e.printStackTrace();
                     i++;
@@ -114,7 +114,7 @@ public class DataService {
                             (String)temp.get("RNTFEE"),
                             null
                     );
-                    dataRepository.save(childCenterInfo);
+                    childCenterInfoRepository.save(childCenterInfo);
                 } catch (NumberFormatException e){
                     e.printStackTrace();
                     i++;
@@ -169,7 +169,7 @@ public class DataService {
                             (String)temp.get("RNTFEE"),
                             null
                     );
-                    dataRepository.save(childCenterInfo);
+                    childCenterInfoRepository.save(childCenterInfo);
                 } catch (NumberFormatException e){
                     e.printStackTrace();
                     i++;
