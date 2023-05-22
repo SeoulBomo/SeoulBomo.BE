@@ -3,7 +3,7 @@ package SeoulBomo.SeoulBomoBe.domain.childCenterInfo.dto;
 import SeoulBomo.SeoulBomoBe.domain.childCenterInfo.model.ChildCenterInfo;
 import lombok.Builder;
 
-public class BoroughDto {
+public class ChildCenterInfoDto {
     public record ChildCenterBoroughListRequest(
             String borough,
             String centerType){

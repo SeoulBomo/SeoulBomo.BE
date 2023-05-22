@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static SeoulBomo.SeoulBomoBe.domain.childCareInfo.dto.ChildCareInfoDto.*;
-import static SeoulBomo.SeoulBomoBe.domain.childCenterInfo.dto.BoroughDto.*;
+import static SeoulBomo.SeoulBomoBe.domain.childCenterInfo.dto.ChildCenterInfoDto.*;
 
 @Service
 public class ChildCenterInfoService {
