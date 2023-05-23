@@ -1,9 +1,9 @@
 package SeoulBomo.SeoulBomoBe.domain.like.service;
 
 import SeoulBomo.SeoulBomoBe.common.exception.StatusCode;
-import SeoulBomo.SeoulBomoBe.domain.account.AccountRepository;
 import SeoulBomo.SeoulBomoBe.domain.account.exception.AccountException;
 import SeoulBomo.SeoulBomoBe.domain.account.model.Account;
+import SeoulBomo.SeoulBomoBe.domain.account.repository.AccountRepository;
 import SeoulBomo.SeoulBomoBe.domain.childCareInfo.exception.ChildCareInfoException;
 import SeoulBomo.SeoulBomoBe.domain.childCareInfo.model.ChildCareInfo;
 import SeoulBomo.SeoulBomoBe.domain.childCareInfo.repositrory.ChildCareInfoRepository;
