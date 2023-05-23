@@ -38,7 +38,7 @@ public class ChildCenterInfoController {
 
     @GetMapping("/api/v1/child-center/detail")
     public ResponseEntity getChildCenterInfo(@RequestParam("id") Long id){
-        ChildCenterInfo info = childCenterInfoService.findVerifiedCenterInfo(id);
+        ChildCenterDetailResponse info = childCenterInfoService.findVerifiedCenterInfo(id);
         return new ResponseEntity(info, HttpStatus.OK);
     }
 
