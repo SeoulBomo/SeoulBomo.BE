@@ -10,13 +10,15 @@ public class AccountDto {
     }
 
     public record LoginResponse(
+            long id,
             String accessToken
     ) {
         @Builder
         public LoginResponse {
         }
-        public static LoginResponse of(String accessToken) {
+        public static LoginResponse of(Long id, String accessToken) {
             return LoginResponse.builder()
+                    .id(id)
                     .accessToken(accessToken)
                     .build();
         }

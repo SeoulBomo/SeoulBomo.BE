@@ -40,14 +40,14 @@ public class AccountService {
 
     public LoginResponse login(LoginRequest loginRequest, HttpServletResponse res) {
         if (loginRequest.socialType().equals("Kakao")) {
-            return LoginResponse.of(kakaoToken(loginRequest.accessToken(), res));
+            return kakaoToken(loginRequest.accessToken(), res);
         } else {
-            return LoginResponse.of(naverToken(loginRequest.accessToken(), res));
+            return naverToken(loginRequest.accessToken(), res);
         }
     }
 
     @Transactional
-    public String naverToken(String code, HttpServletResponse response) {
+    public LoginResponse naverToken(String code, HttpServletResponse response) {
         try {
             JSONParser jsonParser = new JSONParser();
             String header = "Bearer " + code;
@@ -70,7 +70,7 @@ public class AccountService {
             }
             String access_token = tokenProvider.create(new PrincipalDetails(naverAccount));
             response.addHeader("Authorization", "Bearer " + access_token);
-            return access_token;
+            return LoginResponse.of(naverAccount.getId(), access_token);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -78,7 +78,7 @@ public class AccountService {
     }
 
     @Transactional
-    public String kakaoToken(String code, HttpServletResponse res) {
+    public LoginResponse kakaoToken(String code, HttpServletResponse res) {
         try {
             String header = "Bearer " + code;
             Map<String, String> requestHeaders = new HashMap<>();
@@ -104,7 +104,7 @@ public class AccountService {
             }
             String access_token = tokenProvider.create(new PrincipalDetails(kakaoAccount));
             res.setHeader("Authorization", "Bearer " + access_token);
-            return access_token;
+            return LoginResponse.of(kakaoAccount.getId(), access_token);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -112,7 +112,6 @@ public class AccountService {
     }
 
     /*
-
     public MultiValueMap<String, String> accessTokenParams(String grantType, String clientId, String code, String redirect_uri) {
         MultiValueMap<String, String> accessTokenParams = new LinkedMultiValueMap<>();
         accessTokenParams.add("grant_type", grantType);
