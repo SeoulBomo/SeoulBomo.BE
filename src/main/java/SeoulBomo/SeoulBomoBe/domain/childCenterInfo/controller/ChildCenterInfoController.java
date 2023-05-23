@@ -39,7 +39,7 @@ public class ChildCenterInfoController {
         return new ResponseEntity(info, HttpStatus.OK);
     }
 
-    @GetMapping("borough/center-list")
+    @PostMapping("borough/center-list")
     public ResponseEntity getBoroughCenterList(
             @PageableDefault Pageable pageable,
             @RequestBody ChildCenterBoroughListRequest childCenterBoroughListRequest

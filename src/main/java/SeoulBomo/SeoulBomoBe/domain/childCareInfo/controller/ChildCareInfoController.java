@@ -23,7 +23,7 @@ public class ChildCareInfoController {
         return ResponseEntity.ok(childCareInfoService.saveChildCareInfo());
     }
 
-    @GetMapping("/list")
+    @PostMapping("/list")
     public ResponseEntity<PageResponse<ChildCareInfoListResponse>> getChildCareInfoList
     (
             @PageableDefault Pageable pageable,
