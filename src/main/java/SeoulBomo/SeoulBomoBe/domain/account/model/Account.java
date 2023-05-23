@@ -24,10 +24,11 @@ public class Account {
     private String name;
     private String email;
 
+    private String role = "ROLE_USER";
+
     @Enumerated(EnumType.STRING)
     private SocialType socialType;
 
-    private String providerRefreshToken;
     private String image;
 
     // 회원(1) - 보육 정보 좋아요(다)
@@ -45,4 +46,19 @@ public class Account {
     // 회원(1) - 아동 센터 리뷰(다)
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ChildCenterReview> childCenterReviews = new ArrayList<>();
+
+    public Account update(String name, String profileImage) {
+        this.name = name;
+        this.image = profileImage;
+        return this;
+    }
+
+    public static Account toEntity(String name, String email, SocialType socialType, String image) {
+        return Account.builder()
+                .name(name)
+                .email(email)
+                .socialType(socialType)
+                .image(image)
+                .build();
+    }
 }

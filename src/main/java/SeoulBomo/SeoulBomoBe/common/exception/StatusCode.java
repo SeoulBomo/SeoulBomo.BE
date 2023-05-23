@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 public enum StatusCode {
     // ACCOUNT 1000번대
     NOT_FOUND_ACCOUNT(404, 1000, "not found account error."),
+    FILTER_ACCESS_DENIED(401, 1000, "access denied."),
 
     // CHILDCARE 2000번대
     NOT_FOUND_CHILDCARE(404, 2000, "not found child care info error."),
@@ -26,13 +27,11 @@ public enum StatusCode {
     INVALID_INPUT_VALUE(400, 9010, "invalid input value."),
     METHOD_NOT_ALLOWED(405, 9020, "method not allowed."),
     HTTP_CLIENT_ERROR(400, 9030, "http client error."),
-
-
     ;
     private int httpCode;
     private int errorCode;
     private String message;
-  
+
     StatusCode(int httpCode, int errorCode, String message) {
         this.httpCode = httpCode;
         this.errorCode = errorCode;
