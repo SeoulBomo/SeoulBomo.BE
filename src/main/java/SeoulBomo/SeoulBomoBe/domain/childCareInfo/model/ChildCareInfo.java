@@ -3,6 +3,7 @@ package SeoulBomo.SeoulBomoBe.domain.childCareInfo.model;
 import SeoulBomo.SeoulBomoBe.common.Borough;
 import SeoulBomo.SeoulBomoBe.domain.like.model.ChildCareLike;
 import SeoulBomo.SeoulBomoBe.domain.review.model.ChildCareReview;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -38,10 +39,12 @@ public class ChildCareInfo {
     private String facilityName;
 
     // 보육 정보(1) - 보육 정보 좋아요(다)
+    @JsonIgnore
     @OneToMany(mappedBy = "childCareInfo", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ChildCareLike> childCareLikes = new ArrayList<>();
 
     // 보육 정보(1) - 보육 정보 리뷰(다)
+    @JsonIgnore
     @OneToMany(mappedBy = "childCareInfo", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ChildCareReview> childCareReviews = new ArrayList<>();
 

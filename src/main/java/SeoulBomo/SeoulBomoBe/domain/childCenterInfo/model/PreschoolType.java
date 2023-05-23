@@ -1,5 +1,8 @@
 package SeoulBomo.SeoulBomoBe.domain.childCenterInfo.model;
 
+import lombok.Getter;
+
+@Getter
 public enum PreschoolType {
 
     PUBLIC("국공립"),
@@ -16,4 +19,12 @@ public enum PreschoolType {
         this.detail = detail;
     }
 
+    public static PreschoolType getType(String name) {
+        for(PreschoolType p : values()){
+            if(p.detail.equals(name)){
+                return p;
+            }
+        }
+        return null;
+    }
 }

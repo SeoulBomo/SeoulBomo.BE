@@ -37,6 +37,15 @@ public enum Borough { // 자치구
         this.detail = detail;
     }
 
+    public static Borough getName(String name){
+        for(Borough b : values()){
+            if(b.detail.equals(name)){
+                return b;
+            }
+        }
+        return null;
+    }
+
     public static Borough findByDetail(String detail) {
         return switch (detail) {
             case "강남구" -> GANGNAM;
