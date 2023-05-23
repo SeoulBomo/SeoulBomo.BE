@@ -23,13 +23,13 @@ public class ChildCareInfoController {
         return ResponseEntity.ok(childCareInfoService.saveChildCareInfo());
     }
 
-    @PostMapping("/list")
-    public ResponseEntity<PageResponse<ChildCareInfoListResponse>> getChildCareInfoList
-    (
+    @GetMapping("/list")
+    public ResponseEntity<PageResponse<ChildCareInfoListResponse>> getChildCareInfoList(
             @PageableDefault Pageable pageable,
-             @RequestBody ChildCareInfoListRequest childCareInfoListRequest
+            @RequestParam(value = "info-type") String infoType,
+            @RequestParam(value = "age-type") String ageType
     ) {
-        return ResponseEntity.ok(childCareInfoService.getChildCareInfoList(pageable, childCareInfoListRequest));
+        return ResponseEntity.ok(childCareInfoService.getChildCareInfoList(pageable, infoType, ageType));
     }
 
     @GetMapping("/{child-care-info-id}")

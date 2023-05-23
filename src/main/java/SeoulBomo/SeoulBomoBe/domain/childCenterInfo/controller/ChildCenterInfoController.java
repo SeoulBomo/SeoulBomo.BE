@@ -39,14 +39,13 @@ public class ChildCenterInfoController {
         return new ResponseEntity(info, HttpStatus.OK);
     }
 
-    @PostMapping("borough/center-list")
+    @GetMapping("borough/center-list")
     public ResponseEntity getBoroughCenterList(
             @PageableDefault Pageable pageable,
-            @RequestBody ChildCenterBoroughListRequest childCenterBoroughListRequest
-            ){
-        PageResponse<ChildCenterBoroughListResponse> result =
-                childCenterInfoService.findBoroughCenterList(pageable, childCenterBoroughListRequest);
-
+            @RequestParam("borough") String borough,
+            @RequestParam("center-type") String centerType
+    ){
+        PageResponse<ChildCenterBoroughListResponse> result = childCenterInfoService.findBoroughCenterList(pageable, borough, centerType);
         return new ResponseEntity(result, HttpStatus.OK);
     }
 

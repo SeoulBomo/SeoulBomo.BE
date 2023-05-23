@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static SeoulBomo.SeoulBomoBe.domain.childCareInfo.dto.ChildCareInfoDto.*;
 import static SeoulBomo.SeoulBomoBe.domain.childCenterInfo.dto.ChildCenterInfoDto.*;
@@ -61,11 +60,8 @@ public class ChildCenterInfoService {
         return ChildCenterDetailResponse.of(centerInfo, reviewCount, likeCount);
     }
 
-    public PageResponse<ChildCenterBoroughListResponse> findBoroughCenterList(Pageable pageable, ChildCenterBoroughListRequest childCenterBoroughListRequest) {
-        Borough borough = Borough.getName(childCenterBoroughListRequest.borough());
-        CenterType centerType = CenterType.getName(childCenterBoroughListRequest.centerType());
-
-        return PageResponse.of(childCenterInfoRepository.findAllByBoroughAndCenterType(pageable, borough, centerType).map(ChildCenterBoroughListResponse::of));
+    public PageResponse<ChildCenterBoroughListResponse> findBoroughCenterList(Pageable pageable, String borough, String centerType) {
+        return PageResponse.of(childCenterInfoRepository.findAllByBoroughAndCenterType(pageable, Borough.getName(borough), CenterType.getName(centerType)).map(ChildCenterBoroughListResponse::of));
     }
 
     public PageResponse<ChildCenterKeywordListResponse> findKeywordCenterList(Pageable pageable, String keyword) {
