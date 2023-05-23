@@ -20,6 +20,6 @@ public interface ChildCareInfoRepository extends JpaRepository<ChildCareInfo, Lo
     @Query(value = "SELECT * FROM child_care_info c WHERE (c.name LIKE %:keyword% OR c.address LIKE %:keyword%)", nativeQuery = true)
     Page<ChildCareInfo> findAllByAddressORNameContaining(Pageable pageable, String keyword);
 
-    @Query(value = "SELECT * FROM child_care_info c WHERE (c.name LIKE %:keyword% OR c.address LIKE %:keyword%) LIMIT 5", nativeQuery = true)
+    @Query(value = "SELECT * FROM child_care_info c WHERE (c.name LIKE %:keyword% OR c.address LIKE %:keyword%) LIMIT 3", nativeQuery = true)
     List<ChildCareInfo> findTop3ByAddressORNameContaining(String keyword);
 }

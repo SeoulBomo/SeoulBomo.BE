@@ -1,5 +1,8 @@
 package SeoulBomo.SeoulBomoBe.domain.childCenterInfo.model;
 
+import lombok.Getter;
+
+@Getter
 public enum ServiceType {
     COMMON("일반"),
     PARTTIME("시간제보육"),

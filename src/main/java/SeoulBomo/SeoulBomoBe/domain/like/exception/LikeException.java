@@ -1,11 +1,12 @@
-package SeoulBomo.SeoulBomoBe.domain.account.exception;
+package SeoulBomo.SeoulBomoBe.domain.like.exception;
 
 import SeoulBomo.SeoulBomoBe.common.exception.StatusCode;
 
-public class AccountException extends RuntimeException{
+public class LikeException extends RuntimeException{
     public StatusCode statusCode;
 
-    public AccountException(StatusCode statusCode) {
+    public LikeException(StatusCode statusCode) {
         super(statusCode.getMessage());
         this.statusCode = statusCode;
     }
+}

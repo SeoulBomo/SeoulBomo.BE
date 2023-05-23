@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 import static SeoulBomo.SeoulBomoBe.domain.childCareInfo.dto.ChildCareInfoDto.*;
-import static SeoulBomo.SeoulBomoBe.domain.childCenterInfo.dto.BoroughDto.*;
+import static SeoulBomo.SeoulBomoBe.domain.childCenterInfo.dto.ChildCenterInfoDto.*;
 
 @RestController
 public class ChildCenterInfoController {
@@ -38,7 +38,7 @@ public class ChildCenterInfoController {
 
     @GetMapping("/api/v1/child-center/detail")
     public ResponseEntity getChildCenterInfo(@RequestParam("id") Long id){
-        ChildCenterInfo info = childCenterInfoService.findVerifiedCenterInfo(id);
+        ChildCenterDetailResponse info = childCenterInfoService.findVerifiedCenterInfo(id);
         return new ResponseEntity(info, HttpStatus.OK);
     }
 
