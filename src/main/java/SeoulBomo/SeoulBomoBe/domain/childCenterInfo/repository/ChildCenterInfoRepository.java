@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface ChildCenterInfoRepository extends JpaRepository<ChildCenterInfo, Long> {
 
-    List<ChildCenterInfo> findTop5ByBoroughAndCenterType(Borough borough,CenterType centerType);
+    List<ChildCenterInfo> findTop3ByBoroughAndCenterType(Borough borough,CenterType centerType);
 
     Page<ChildCenterInfo> findAllByBoroughAndCenterType(Pageable pageable, Borough borough, CenterType centerType);
 

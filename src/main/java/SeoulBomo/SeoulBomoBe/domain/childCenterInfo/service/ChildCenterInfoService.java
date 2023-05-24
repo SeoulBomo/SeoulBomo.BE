@@ -33,7 +33,7 @@ public class ChildCenterInfoService {
         List<Object> centerInfoList = new ArrayList<>();
 
         for(CenterType center : CenterType.values()){
-            List<ChildCenterInfo> temp = childCenterInfoRepository.findTop5ByBoroughAndCenterType(name, center);
+            List<ChildCenterInfo> temp = childCenterInfoRepository.findTop3ByBoroughAndCenterType(name, center);
             centerInfoList.add(temp);
         }
 
