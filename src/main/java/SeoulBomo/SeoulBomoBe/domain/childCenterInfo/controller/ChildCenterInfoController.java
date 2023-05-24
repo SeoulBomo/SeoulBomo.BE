@@ -33,7 +33,7 @@ public class ChildCenterInfoController {
         return new ResponseEntity(keywordList, HttpStatus.OK);
     }
 
-    @GetMapping("child-center/{info-id}/detail")
+    @GetMapping("child-center/{info-id}")
     public ResponseEntity getChildCenterInfo(@PathVariable("info-id") Long id){
         ChildCenterDetailResponse info = childCenterInfoService.findVerifiedCenterInfo(id);
         return new ResponseEntity(info, HttpStatus.OK);

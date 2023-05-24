@@ -61,7 +61,7 @@ public class ChildCenterInfoService {
     }
 
     public PageResponse<ChildCenterBoroughListResponse> findBoroughCenterList(Pageable pageable, String borough, String centerType) {
-        return PageResponse.of(childCenterInfoRepository.findAllByBoroughAndCenterType(pageable, Borough.getName(borough), CenterType.getName(centerType)).map(ChildCenterBoroughListResponse::of));
+        return PageResponse.of(childCenterInfoRepository.findAllByBoroughAndCenterType(pageable, Borough.findByDetail(borough), CenterType.getName(centerType)).map(ChildCenterBoroughListResponse::of));
     }
 
     public PageResponse<ChildCenterKeywordListResponse> findKeywordCenterList(Pageable pageable, String keyword) {
