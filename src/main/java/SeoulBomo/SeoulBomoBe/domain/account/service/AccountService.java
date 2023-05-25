@@ -43,7 +43,7 @@ public class AccountService {
     private String KAKAO_REDIRECT_URI;
 
     public LoginResponse login(LoginRequest loginRequest, HttpServletResponse res) {
-        if (loginRequest.socialType().equals("Kakao")) {
+        if (loginRequest.socialType().toUpperCase().equals(SocialType.KAKAO.toString())) {
             return kakaoToken(loginRequest.accessToken(), res);
         } else {
             return naverToken(loginRequest.accessToken(), res);
@@ -74,7 +74,7 @@ public class AccountService {
             }
             String access_token = tokenProvider.create(new PrincipalDetails(naverAccount));
             response.addHeader("Authorization", "Bearer " + access_token);
-            return LoginResponse.of(naverAccount.getId(), access_token);
+            return LoginResponse.of(naverAccount, access_token);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -108,7 +108,7 @@ public class AccountService {
             }
             String access_token = tokenProvider.create(new PrincipalDetails(kakaoAccount));
             res.setHeader("Authorization", "Bearer " + access_token);
-            return LoginResponse.of(kakaoAccount.getId(), access_token);
+            return LoginResponse.of(kakaoAccount, access_token);
         } catch (Exception e) {
             e.printStackTrace();
         }

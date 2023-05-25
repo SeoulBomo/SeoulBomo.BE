@@ -1,5 +1,6 @@
 package SeoulBomo.SeoulBomoBe.domain.account.dto;
 
+import SeoulBomo.SeoulBomoBe.domain.account.model.Account;
 import lombok.Builder;
 
 public class AccountDto {
@@ -11,14 +12,20 @@ public class AccountDto {
 
     public record LoginResponse(
             long id,
-            String accessToken
+            String accessToken,
+            String socialType,
+            String profileImage,
+            String name
     ) {
         @Builder
         public LoginResponse {
         }
-        public static LoginResponse of(Long id, String accessToken) {
+        public static LoginResponse of(Account account, String accessToken) {
             return LoginResponse.builder()
-                    .id(id)
+                    .id(account.getId())
+                    .socialType(account.getSocialType().toString())
+                    .profileImage(account.getImage())
+                    .name(account.getName())
                     .accessToken(accessToken)
                     .build();
         }
