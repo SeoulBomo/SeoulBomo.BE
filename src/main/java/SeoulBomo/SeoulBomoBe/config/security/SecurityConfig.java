@@ -24,6 +24,8 @@ public class SecurityConfig {
     protected SecurityFilterChain config(HttpSecurity http) throws Exception {
         return http
                 .csrf().disable()
+                .cors()
+                .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and()
