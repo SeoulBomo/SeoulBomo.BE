@@ -1,8 +1,10 @@
 package SeoulBomo.SeoulBomoBe.domain.account.service;
 
+import SeoulBomo.SeoulBomoBe.common.exception.StatusCode;
 import SeoulBomo.SeoulBomoBe.config.PrincipalDetails;
 import SeoulBomo.SeoulBomoBe.config.jwt.TokenProvider;
 import SeoulBomo.SeoulBomoBe.domain.account.dto.AccountDto.*;
+import SeoulBomo.SeoulBomoBe.domain.account.exception.AccountException;
 import SeoulBomo.SeoulBomoBe.domain.account.model.Account;
 import SeoulBomo.SeoulBomoBe.domain.account.model.SocialType;
 import SeoulBomo.SeoulBomoBe.domain.account.repository.AccountRepository;
@@ -20,6 +22,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+
+import static SeoulBomo.SeoulBomoBe.config.security.SecurityUtils.getCurrentAccountEmail;
 
 @Service
 @RequiredArgsConstructor
@@ -186,7 +190,7 @@ public class AccountService {
         }
     }
 
-    /*public Account getMyAccount() {
+    public Account getCurrentAccount() {
         return accountRepository.findByEmail(getCurrentAccountEmail()).orElseThrow(() -> new AccountException(StatusCode.NOT_FOUND_ACCOUNT));
-    }*/
+    }
 }
