@@ -9,62 +9,38 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-import static SeoulBomo.SeoulBomoBe.domain.childCareInfo.dto.ChildCareInfoDto.*;
 import static SeoulBomo.SeoulBomoBe.domain.childCenterInfo.dto.ChildCenterInfoDto.*;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1/child-center-info")
 public class ChildCenterInfoController {
 
     @Autowired
     private ChildCenterInfoService childCenterInfoService;
 
-    @GetMapping("search/borough-center")
-    public ResponseEntity getBoroughCenter(@RequestParam("borough") String borough){
-        List<Object> boroughList = childCenterInfoService.findBoroughList(borough);
-        return new ResponseEntity(boroughList, HttpStatus.OK);
-    }
-
-    @GetMapping("search/keyword")
-    public ResponseEntity getKeyWordCenter(@RequestParam("keyword") String keyword){
-        List<Object> keywordList = childCenterInfoService.searchKeywordLists(keyword);
-        return new ResponseEntity(keywordList, HttpStatus.OK);
-    }
-
-    @GetMapping("child-center/{info-id}")
-    public ResponseEntity getChildCenterInfo(@PathVariable("info-id") Long id){
+    @GetMapping("/{child-center-info-id}")
+    public ResponseEntity getChildCenterInfo(@PathVariable("child-center-info-id") Long id) {
         ChildCenterDetailResponse info = childCenterInfoService.findVerifiedCenterInfo(id);
         return new ResponseEntity(info, HttpStatus.OK);
     }
 
-    @GetMapping("borough/center-list")
+    @GetMapping("/list/borough")
     public ResponseEntity getBoroughCenterList(
             @PageableDefault Pageable pageable,
             @RequestParam("borough") String borough,
             @RequestParam("center-type") String centerType
-    ){
+    ) {
         PageResponse<ChildCenterBoroughListResponse> result = childCenterInfoService.findBoroughCenterList(pageable, borough, centerType);
         return new ResponseEntity(result, HttpStatus.OK);
     }
 
-    @GetMapping("keyword/center-list")
+    @GetMapping("/list/keyword")
     public ResponseEntity getKeyWordCenterList(
             @PageableDefault Pageable pageable,
             @RequestParam("keyword") String keyword
-    ){
+    ) {
         PageResponse<ChildCenterKeywordListResponse> result = childCenterInfoService.findKeywordCenterList(pageable, keyword);
 
-        return new ResponseEntity(result, HttpStatus.OK);
-    }
-
-    @GetMapping("keyword/care-info-list")
-    public ResponseEntity getKeyWordCareInfoList(
-            @PageableDefault Pageable pageable,
-            @RequestParam("keyword") String keyword
-    ){
-        PageResponse<ChildCareInfoKeywordListResponse> result = childCenterInfoService.findKeywordInfoList(pageable, keyword);
         return new ResponseEntity(result, HttpStatus.OK);
     }
 }

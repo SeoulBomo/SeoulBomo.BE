@@ -25,16 +25,16 @@ public class ReviewService {
     private final ChildCareReviewRepository childCareReviewRepository;
     private final ChildCenterReviewRepository childCenterReviewRepository;
 
-    public ReviewIdResponse createChildCareReview(Long childCareId, ReviewRequest reviewRequest) {
+    public ReviewIdResponse createChildCareReview(Long careInfoId, ReviewRequest reviewRequest) {
         Account account = accountService.getCurrentAccount();
-        ChildCareReview childCareReview = reviewRequest.toChildCareReview(childCareInfoService.findChildCareInfo(childCareId), account);
+        ChildCareReview childCareReview = reviewRequest.toChildCareReview(childCareInfoService.findChildCareInfo(careInfoId), account);
         childCareReviewRepository.save(childCareReview);
         return ReviewIdResponse.of(childCareReview.getId());
     }
 
-    public ReviewIdResponse createChildCenterReview(Long childCenterId, ReviewRequest reviewRequest) {
+    public ReviewIdResponse createChildCenterReview(Long centerInfoId, ReviewRequest reviewRequest) {
         Account account = accountService.getCurrentAccount();
-        ChildCenterReview childCenterReview = reviewRequest.toChildCenterReview(childCenterInfoService.findChildCenterInfo(childCenterId), account);
+        ChildCenterReview childCenterReview = reviewRequest.toChildCenterReview(childCenterInfoService.findChildCenterInfo(centerInfoId), account);
         childCenterReviewRepository.save(childCenterReview);
         return ReviewIdResponse.of(childCenterReview.getId());
     }
@@ -73,13 +73,13 @@ public class ReviewService {
         return ReviewMessage.of(reviewId + ", Delete Success");
     }
 
-    public ReviewListResponse getReviewListByChildCareInfo(Long childCareInfoId) {
-        return ReviewListResponse.of(childCareReviewRepository.findAllByChildCareInfoId(childCareInfoId)
+    public ReviewListResponse getReviewListByChildCareInfo(Long careInfoId) {
+        return ReviewListResponse.of(childCareReviewRepository.findAllByChildCareInfoId(careInfoId)
                 .stream().map(ReviewResponse::ofChildCareReviewList).toList());
     }
 
-    public ReviewListResponse getReviewListByChildCenterInfo(Long childCenterInfoId) {
-        return ReviewListResponse.of(childCenterReviewRepository.findAllByChildCenterInfoId(childCenterInfoId).stream()
+    public ReviewListResponse getReviewListByChildCenterInfo(Long centerInfoId) {
+        return ReviewListResponse.of(childCenterReviewRepository.findAllByChildCenterInfoId(centerInfoId).stream()
                 .map(ReviewResponse::ofChildCenterReviewList).toList());
     }
 

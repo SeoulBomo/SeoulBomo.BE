@@ -115,6 +115,10 @@ public class ChildCareInfoService {
         return PopularChildCareInfoRespose.of(childCareInfoRepository.findTop7ByOrderById().stream().map(ChildCareInfoSimpleResponse::of).toList());
     }
 
+    public PageResponse<ChildCareInfoKeywordListResponse> findKeywordInfoList(Pageable pageable, String keyword) {
+        return PageResponse.of(childCareInfoRepository.findAllByAddressORNameContaining(pageable, keyword).map(ChildCareInfoKeywordListResponse::of));
+    }
+
     public ChildCareInfo findChildCareInfo(Long childCareInfoId) {
     	return childCareInfoRepository.findById(childCareInfoId)
     			.orElseThrow(() -> new ChildCareInfoException(StatusCode.NOT_FOUND_CHILDCARE));

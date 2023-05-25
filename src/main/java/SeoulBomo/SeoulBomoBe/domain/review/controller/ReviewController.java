@@ -15,27 +15,27 @@ public class ReviewController {
 
     private final ReviewService reviewService;
 
-    @PostMapping("/child-care/{child-care-id}")
-    public ResponseEntity<ReviewIdResponse> createChildCareReview(@PathVariable("child-care-id") Long childCareId, @RequestBody ReviewRequest reviewRequest) {
-        return ResponseEntity.ok(reviewService.createChildCareReview(childCareId, reviewRequest));
+    @PostMapping("/care-info/{care-info-id}")
+    public ResponseEntity<ReviewIdResponse> createChildCareReview(@PathVariable("care-info-id") Long careInfoId, @RequestBody ReviewRequest reviewRequest) {
+        return ResponseEntity.ok(reviewService.createChildCareReview(careInfoId, reviewRequest));
     }
 
-    @PostMapping("/child-center/{child-center-id}")
-    public ResponseEntity<ReviewIdResponse> createChildCenterReview(@PathVariable("child-center-id") Long childCenterId, @RequestBody ReviewRequest reviewRequest) {
-        return ResponseEntity.ok(reviewService.createChildCenterReview(childCenterId, reviewRequest));
+    @PostMapping("/center-info/{center-info-id}")
+    public ResponseEntity<ReviewIdResponse> createChildCenterReview(@PathVariable("center-info-id") Long centerInfoId, @RequestBody ReviewRequest reviewRequest) {
+        return ResponseEntity.ok(reviewService.createChildCenterReview(centerInfoId, reviewRequest));
     }
 
-    @PutMapping("/{reviews-id}/child-care")
+    @PutMapping("/{reviews-id}/care-info")
     public ResponseEntity<ReviewIdResponse> updateChildCareReview(@PathVariable("reviews-id") Long reviewId, @RequestBody ReviewRequest reviewRequest) {
         return ResponseEntity.ok(reviewService.updateChildCareReview(reviewId, reviewRequest));
     }
 
-    @PutMapping("/{reviews-id}/child-center")
+    @PutMapping("/{reviews-id}/center-info")
     public ResponseEntity<ReviewIdResponse> updateChildCenterReview(@PathVariable("reviews-id") Long reviewId, @RequestBody ReviewRequest reviewRequest) {
         return ResponseEntity.ok(reviewService.updateChildCenterReview(reviewId, reviewRequest));
     }
 
-    @DeleteMapping("/{reviews-id}/child-care")
+    @DeleteMapping("/{reviews-id}/care-info")
     public ResponseEntity<ReviewMessage> deleteChildCareReview(@PathVariable("reviews-id") Long reviewId) {
         return ResponseEntity.ok(reviewService.deleteChildCareReview(reviewId));
     }
@@ -45,13 +45,13 @@ public class ReviewController {
         return ResponseEntity.ok(reviewService.deleteChildCenterReview(reviewId));
     }
 
-    @GetMapping("child-care/{child-care-id}")
-    public ResponseEntity<ReviewListResponse> getReviewListByChildCareInfo(@PathVariable("child-care-id") Long childCareInfoId) {
-        return ResponseEntity.ok(reviewService.getReviewListByChildCareInfo(childCareInfoId));
+    @GetMapping("care-info/{care-info-id}")
+    public ResponseEntity<ReviewListResponse> getReviewListByChildCareInfo(@PathVariable("care-info-id") Long careInfoId) {
+        return ResponseEntity.ok(reviewService.getReviewListByChildCareInfo(careInfoId));
     }
 
-    @GetMapping("child-center/{child-center-id}")
-    public ResponseEntity<ReviewListResponse> getReviewListByChildCenterInfo(@PathVariable("child-center-id") Long childCenterInfoId) {
-        return ResponseEntity.ok(reviewService.getReviewListByChildCenterInfo(childCenterInfoId));
+    @GetMapping("center-info/{center-info-id}")
+    public ResponseEntity<ReviewListResponse> getReviewListByChildCenterInfo(@PathVariable("center-info-id") Long centerInfoId) {
+        return ResponseEntity.ok(reviewService.getReviewListByChildCenterInfo(centerInfoId));
     }
 }
