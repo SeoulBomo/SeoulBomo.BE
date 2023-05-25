@@ -37,7 +37,8 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 .authorizeHttpRequests(authorize -> authorize
                         .shouldFilterAllDispatcherTypes(false)
-                        .requestMatchers("/**", "api/v1/child-care-info/**로그인 안하구도 되는거", "/api/v1/accounts/oauth/**").permitAll()
+                        .requestMatchers("/**").permitAll()
+                        //.requestMatchers("api/v1/search/**", "api/v1/child-center-info/**", "api/v1/child-care-info/**", "/api/v1/accounts/oauth/**").permitAll()
                         .anyRequest().authenticated())
                 .apply(new JwtSecurityConfig(tokenProvider))
                 .and()
