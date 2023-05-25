@@ -16,7 +16,7 @@ public class ChildCenterInfoDto {
     public record ChildCenterBoroughListResponse(
             Long id,
             String name,
-            Borough borough,
+            String borough,
             String address,
             String centerType,
             Double latitude,
@@ -30,7 +30,7 @@ public class ChildCenterInfoDto {
             return ChildCenterBoroughListResponse.builder()
                     .id(childCenterInfo.getId())
                     .name(childCenterInfo.getName())
-                    .borough(childCenterInfo.getBorough())
+                    .borough(childCenterInfo.getBorough().getDetail())
                     .address(childCenterInfo.getAddress())
                     .centerType(childCenterInfo.getCenterType().getDetail())
                     .latitude(childCenterInfo.getLatitude())
