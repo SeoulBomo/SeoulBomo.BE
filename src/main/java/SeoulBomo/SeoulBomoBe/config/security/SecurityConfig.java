@@ -24,6 +24,8 @@ public class SecurityConfig {
     protected SecurityFilterChain config(HttpSecurity http) throws Exception {
         return http
                 .csrf().disable()
+                .cors()
+                .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and()
@@ -35,10 +37,9 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 .authorizeHttpRequests(authorize -> authorize
                         .shouldFilterAllDispatcherTypes(false)
-                        .requestMatchers("/**", "/api/v1/account/oauth/**")
-                        .permitAll()
-                        .anyRequest()
-                        .authenticated())
+                        .requestMatchers("/**").permitAll()
+                        //.requestMatchers("api/v1/search/**", "api/v1/child-center-info/**", "api/v1/child-care-info/**", "/api/v1/accounts/oauth/**").permitAll()
+                        .anyRequest().authenticated())
                 .apply(new JwtSecurityConfig(tokenProvider))
                 .and()
                 .build();

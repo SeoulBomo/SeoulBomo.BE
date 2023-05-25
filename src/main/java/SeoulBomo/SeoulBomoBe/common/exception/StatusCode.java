@@ -18,6 +18,8 @@ public enum StatusCode {
 
     // REVIEW 4000번대
     NOT_FOUND_REVIEW(404, 4000, "not found review error."),
+    ALREADY_DELETED_REVIEW(404, 4010, "already deleted review error."),
+    NOT_REVIEW_WRITER(403, 4020, "not review writer error."),
 
     // LIKE 5000번대
     NOT_FOUND_LIKE(404, 5000, "not found like error."),

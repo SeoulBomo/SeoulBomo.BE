@@ -5,7 +5,6 @@ import SeoulBomo.SeoulBomoBe.config.PrincipalDetails;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.interfaces.DecodedJWT;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,14 +26,18 @@ public class TokenProvider {
     public int accessDuration;
     @Value("${jwt.refresh-duration}")
     public int refreshDuration;
+    @Value("${jwt.secret-key}")
+    public String secretKey;
+    @Value("${jwt.issuer}")
+    public String issuer;
 
     public String create(PrincipalDetails principalDetails) {
         return JWT.create()
-                .withSubject("seoulbomo")
+                .withIssuer(issuer)
                 .withExpiresAt(new Date(System.currentTimeMillis() + (accessDuration)))
                 .withClaim("id", principalDetails.getAccount().getId())
                 .withClaim("email", principalDetails.getAccount().getEmail())
-                .sign(Algorithm.HMAC512("seoulbomo"));
+                .sign(Algorithm.HMAC512(secretKey));
     }
 
     public String resolveToken(HttpServletRequest request) {
@@ -57,11 +60,10 @@ public class TokenProvider {
 
     public boolean verifyToken(String token) {
         try {
-            Algorithm algorithm = Algorithm.HMAC512("seoulbomo"); // 비밀키 설정
+            Algorithm algorithm = Algorithm.HMAC512(secretKey);
             JWTVerifier verifier = JWT.require(algorithm)
-                    .withIssuer("seoulbomo") // 토큰 발급자 설정
+                    .withIssuer(issuer)
                     .build();
-            DecodedJWT decodedJWT = verifier.verify(token);
             return true;
         } catch (JWTVerificationException e) {
             e.printStackTrace();

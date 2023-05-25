@@ -106,13 +106,21 @@ public class ChildCareInfoService {
     }
 
     public ChildCareInfoResponse getChildCareInfo(Long childCareInfoId) {
-        ChildCareInfo childCareInfo = childCareInfoRepository.findById(childCareInfoId)
-                .orElseThrow(() -> new ChildCareInfoException(StatusCode.NOT_FOUND_CHILDCARE));
+        ChildCareInfo childCareInfo = findChildCareInfo(childCareInfoId);
         //return ChildCareInfoResponse.of(childCareInfo, childCareReviewRepository.countByChildCareInfo(), childCareLikeRepository.countByChildCareInfo());
         return ChildCareInfoResponse.of(childCareInfo, 0L, 0L);
     }
 
     public PopularChildCareInfoRespose getChildCareInfoListByPopularity() {
         return PopularChildCareInfoRespose.of(childCareInfoRepository.findTop7ByOrderById().stream().map(ChildCareInfoSimpleResponse::of).toList());
+    }
+
+    public PageResponse<ChildCareInfoKeywordListResponse> findKeywordInfoList(Pageable pageable, String keyword) {
+        return PageResponse.of(childCareInfoRepository.findAllByAddressORNameContaining(pageable, keyword).map(ChildCareInfoKeywordListResponse::of));
+    }
+
+    public ChildCareInfo findChildCareInfo(Long childCareInfoId) {
+    	return childCareInfoRepository.findById(childCareInfoId)
+    			.orElseThrow(() -> new ChildCareInfoException(StatusCode.NOT_FOUND_CHILDCARE));
     }
 }
