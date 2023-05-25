@@ -1,7 +1,6 @@
 package SeoulBomo.SeoulBomoBe.domain.childCenterInfo.controller;
 
 import SeoulBomo.SeoulBomoBe.common.dto.PageResponse;
-import SeoulBomo.SeoulBomoBe.domain.childCenterInfo.model.ChildCenterInfo;
 import SeoulBomo.SeoulBomoBe.domain.childCenterInfo.service.ChildCenterInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -69,8 +68,6 @@ public class ChildCenterInfoController {
             @RequestParam("keyword") String keyword
     ){
         PageResponse<ChildCareInfoKeywordListResponse> result = childCenterInfoService.findKeywordInfoList(pageable, keyword);
-
         return new ResponseEntity(result, HttpStatus.OK);
     }
-
 }

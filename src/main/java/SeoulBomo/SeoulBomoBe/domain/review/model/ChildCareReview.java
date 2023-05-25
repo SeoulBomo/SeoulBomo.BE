@@ -1,5 +1,6 @@
 package SeoulBomo.SeoulBomoBe.domain.review.model;
 
+import SeoulBomo.SeoulBomoBe.common.model.BaseEntity;
 import SeoulBomo.SeoulBomoBe.domain.account.model.Account;
 import SeoulBomo.SeoulBomoBe.domain.childCareInfo.model.ChildCareInfo;
 import jakarta.persistence.*;
@@ -10,7 +11,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ChildCareReview {
+public class ChildCareReview extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "child_care_review_id")
@@ -26,4 +27,8 @@ public class ChildCareReview {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "child_care_info_id")
     private ChildCareInfo childCareInfo;
+
+    public void update(String content) {
+        this.content = content;
+    }
 }

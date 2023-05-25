@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static SeoulBomo.SeoulBomoBe.domain.childCareInfo.dto.ChildCareInfoDto.*;
 import static SeoulBomo.SeoulBomoBe.domain.childCenterInfo.dto.ChildCenterInfoDto.*;
@@ -74,5 +73,10 @@ public class ChildCenterInfoService {
 
     public PageResponse<ChildCareInfoKeywordListResponse> findKeywordInfoList(Pageable pageable, String keyword) {
         return PageResponse.of(childCareInfoRepository.findAllByAddressORNameContaining(pageable, keyword).map(ChildCareInfoKeywordListResponse::of));
+    }
+
+    public ChildCenterInfo findChildCenterInfo(Long childCenterInfoId) {
+        return childCenterInfoRepository.findById(childCenterInfoId)
+                .orElseThrow(() -> new ChildCenterInfoException(StatusCode.NOT_FOUND_CHILDCENTER));
     }
 }
