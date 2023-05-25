@@ -94,12 +94,12 @@ public class ReviewService {
     public void checkChildCareReview(ChildCareReview childCareReview) {
         Account account = accountService.getCurrentAccount();
         if (!childCareReview.getAccount().equals(account)) throw new ReviewException(StatusCode.NOT_REVIEW_WRITER);
-        if (!childCareReview.isVisibility()) throw new ReviewException(StatusCode.ALREADY_DELETED_REVIEW);
+        if (!childCareReview.isVisible()) throw new ReviewException(StatusCode.ALREADY_DELETED_REVIEW);
     }
 
     public void checkChildCenterReview(ChildCenterReview childCenterReview) {
         Account account = accountService.getCurrentAccount();
         if (!childCenterReview.getAccount().equals(account)) throw new ReviewException(StatusCode.NOT_REVIEW_WRITER);
-        if (!childCenterReview.isVisibility()) throw new ReviewException(StatusCode.ALREADY_DELETED_REVIEW);
+        if (!childCenterReview.isVisible()) throw new ReviewException(StatusCode.ALREADY_DELETED_REVIEW);
     }
 }
