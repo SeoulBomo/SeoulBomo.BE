@@ -1,7 +1,10 @@
 package SeoulBomo.SeoulBomoBe.domain.childCenterInfo.dto;
 
 import SeoulBomo.SeoulBomoBe.common.Borough;
+import SeoulBomo.SeoulBomoBe.domain.childCenterInfo.model.CenterType;
 import SeoulBomo.SeoulBomoBe.domain.childCenterInfo.model.ChildCenterInfo;
+import SeoulBomo.SeoulBomoBe.domain.childCenterInfo.model.PreschoolType;
+import SeoulBomo.SeoulBomoBe.domain.childCenterInfo.model.ServiceType;
 import lombok.Builder;
 
 public class ChildCenterInfoDto {
@@ -65,10 +68,10 @@ public class ChildCenterInfoDto {
     public record ChildCenterDetailResponse(
             Long id,
             String name,
-            String centerType,
-            String borough,
+            CenterType centerType,
+            Borough borough,
             String address,
-            String preschoolType,
+            PreschoolType preschoolType,
             String contactNumber,
             String homepage,
             Integer classNum,
@@ -81,7 +84,7 @@ public class ChildCenterInfoDto {
             Boolean isFree,
             String fee,
             Boolean isSatOpen,
-            String serviceType,
+            ServiceType serviceType,
             Long reviewCount,
             Long likeCount
     ){
@@ -93,10 +96,10 @@ public class ChildCenterInfoDto {
             return ChildCenterDetailResponse.builder()
                     .id(childCenterInfo.getId())
                     .name(childCenterInfo.getName())
-                    .centerType(childCenterInfo.getCenterType().getDetail())
-                    .borough(childCenterInfo.getBorough().getDetail())
+                    .centerType(childCenterInfo.getCenterType())
+                    .borough(childCenterInfo.getBorough())
                     .address(childCenterInfo.getAddress())
-                    .preschoolType(childCenterInfo.getPreschoolType().getDetail())
+                    .preschoolType(childCenterInfo.getPreschoolType())
                     .cctvNum(childCenterInfo.getCctvNum())
                     .playgroundNum(childCenterInfo.getPlaygroundNum())
                     .teacherNum(childCenterInfo.getTeacherNum())
@@ -106,7 +109,7 @@ public class ChildCenterInfoDto {
                     .isFree(childCenterInfo.getIsFree())
                     .fee(childCenterInfo.getFee())
                     .isSatOpen(childCenterInfo.getIsSatOpen())
-                    .serviceType(childCenterInfo.getServiceType().getDetail())
+                    .serviceType(childCenterInfo.getServiceType())
                     .likeCount(likeCount)
                     .reviewCount(reviewCount)
                     .build();

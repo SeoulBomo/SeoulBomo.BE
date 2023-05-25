@@ -23,7 +23,7 @@ public enum Borough { // 자치구
     SEONGBUK("성북구"),
     SONGPA("송파구"),
     YANGCHEON("양천구"),
-    YEONGDEUNGPO("은평구"),
+    YEONGDEUNGPO("영등포구"),
     YONGSAN("용산구"),
     EUNPYEONG("은평구"),
     JONGNO("종로구"),
