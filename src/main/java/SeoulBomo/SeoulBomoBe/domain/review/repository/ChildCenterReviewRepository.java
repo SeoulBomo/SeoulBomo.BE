@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ChildCenterReviewRepository extends JpaRepository<ChildCenterReview, Long> {
-    List<ChildCenterReview> findAllByChildCenterInfoId(Long childCareInfoId);
+    List<ChildCenterReview> findAllByChildCenterInfoIdAndIsVisible(Long centerInfoId, boolean isVisible);
 }
-

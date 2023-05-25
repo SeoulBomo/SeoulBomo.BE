@@ -11,11 +11,13 @@ import java.util.List;
 
 public class ReviewDto {
 
-    public record ReviewRequest(
+    public record CreateReviewRequest(
+            String targetType,
+            Long targetId,
             String content
     ) {
         @Builder
-        public ReviewRequest {
+        public CreateReviewRequest {
         }
 
         public ChildCenterReview toChildCenterReview(ChildCenterInfo childCenterInfo, Account account) {
@@ -32,6 +34,15 @@ public class ReviewDto {
                     .account(account)
                     .content(content)
                     .build();
+        }
+    }
+
+    public record UpdateReviewRequest(
+            String targetType,
+            String content
+    ) {
+        @Builder
+        public UpdateReviewRequest {
         }
     }
 
