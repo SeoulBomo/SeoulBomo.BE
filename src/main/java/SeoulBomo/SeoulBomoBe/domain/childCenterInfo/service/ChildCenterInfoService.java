@@ -33,7 +33,7 @@ public class ChildCenterInfoService {
         List<Object> centerInfoList = new ArrayList<>();
 
         for(CenterType center : CenterType.values()){
-            List<ChildCenterInfo> temp = childCenterInfoRepository.findTop5ByBoroughAndCenterType(name, center);
+            List<ChildCenterInfo> temp = childCenterInfoRepository.findTop3ByBoroughAndCenterType(name, center);
             centerInfoList.add(temp);
         }
 
@@ -60,11 +60,8 @@ public class ChildCenterInfoService {
         return ChildCenterDetailResponse.of(centerInfo, reviewCount, likeCount);
     }
 
-    public PageResponse<ChildCenterBoroughListResponse> findBoroughCenterList(Pageable pageable, ChildCenterBoroughListRequest childCenterBoroughListRequest) {
-        Borough borough = Borough.getName(childCenterBoroughListRequest.borough());
-        CenterType centerType = CenterType.getName(childCenterBoroughListRequest.centerType());
-
-        return PageResponse.of(childCenterInfoRepository.findAllByBoroughAndCenterType(pageable, borough, centerType).map(ChildCenterBoroughListResponse::of));
+    public PageResponse<ChildCenterBoroughListResponse> findBoroughCenterList(Pageable pageable, String borough, String centerType) {
+        return PageResponse.of(childCenterInfoRepository.findAllByBoroughAndCenterType(pageable, Borough.findByDetail(borough), CenterType.getName(centerType)).map(ChildCenterBoroughListResponse::of));
     }
 
     public PageResponse<ChildCenterKeywordListResponse> findKeywordCenterList(Pageable pageable, String keyword) {

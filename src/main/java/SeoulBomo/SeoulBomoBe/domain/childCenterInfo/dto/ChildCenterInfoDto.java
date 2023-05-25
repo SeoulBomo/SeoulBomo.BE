@@ -1,5 +1,6 @@
 package SeoulBomo.SeoulBomoBe.domain.childCenterInfo.dto;
 
+import SeoulBomo.SeoulBomoBe.common.Borough;
 import SeoulBomo.SeoulBomoBe.domain.childCenterInfo.model.ChildCenterInfo;
 import lombok.Builder;
 
@@ -12,7 +13,7 @@ public class ChildCenterInfoDto {
     public record ChildCenterBoroughListResponse(
             Long id,
             String name,
-            String borough,
+            Borough borough,
             String address,
             String centerType,
             Double latitude,
@@ -26,7 +27,7 @@ public class ChildCenterInfoDto {
             return ChildCenterBoroughListResponse.builder()
                     .id(childCenterInfo.getId())
                     .name(childCenterInfo.getName())
-                    .borough(childCenterInfo.getBorough().getDetail())
+                    .borough(childCenterInfo.getBorough())
                     .address(childCenterInfo.getAddress())
                     .centerType(childCenterInfo.getCenterType().getDetail())
                     .latitude(childCenterInfo.getLatitude())

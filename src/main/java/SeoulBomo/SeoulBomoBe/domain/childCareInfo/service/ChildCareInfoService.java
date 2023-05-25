@@ -31,13 +31,13 @@ public class ChildCareInfoService {
   /*  private final ChildCareReviewRepository childCareReviewRepository;
     private final ChildCareLikeRepository childCareLikeRepository;*/
 
-    public PageResponse<ChildCareInfoListResponse> getChildCareInfoList(Pageable pageable, ChildCareInfoListRequest childCareInfoListRequest) {
-        InfoType infoType = InfoType.valueOf(childCareInfoListRequest.infoType());
-        AgeType ageType = AgeType.valueOf(childCareInfoListRequest.ageType());
-        if (ageType.equals(AgeType.ALL))
-            return PageResponse.of(childCareInfoRepository.findAllByInfoType(pageable, infoType).map(ChildCareInfoListResponse::of));
+    public PageResponse<ChildCareInfoListResponse> getChildCareInfoList(Pageable pageable, String infoType, String ageType) {
+        InfoType info = InfoType.valueOf(infoType);
+        AgeType age = AgeType.valueOf(ageType);
+        if (age.equals(AgeType.ALL))
+            return PageResponse.of(childCareInfoRepository.findAllByInfoType(pageable, info).map(ChildCareInfoListResponse::of));
 
-        return PageResponse.of(childCareInfoRepository.findAllByInfoTypeAndAgeType(pageable, infoType, ageType).map(ChildCareInfoListResponse::of));
+        return PageResponse.of(childCareInfoRepository.findAllByInfoTypeAndAgeType(pageable, info, age).map(ChildCareInfoListResponse::of));
     }
 
 
