@@ -16,10 +16,6 @@ public class CorsConfig {
         config.addAllowedOriginPattern("*");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
-        config.addExposedHeader("Set-Cookie");
-        config.addExposedHeader("Authorization");
-        config.addExposedHeader("EmailVerification");
-        config.setAllowCredentials(Boolean.FALSE);
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }

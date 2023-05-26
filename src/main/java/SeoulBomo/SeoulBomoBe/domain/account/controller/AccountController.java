@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class AccountController {
     private final AccountService loginService;
 
+    @CrossOrigin("localhost:3000")
     @PostMapping("/oauth/login")
     public LoginResponse login(@RequestBody LoginRequest LoginRequest, HttpServletResponse res) {
         return loginService.login(LoginRequest, res);
