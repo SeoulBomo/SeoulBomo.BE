@@ -56,7 +56,7 @@ public class ReviewDto {
         public ReviewResponse {
         }
 
-        public static ReviewResponse ofChildCenterReviewList(ChildCenterReview childCenterReview) {
+        public static ReviewResponse ofChildCenterReview(ChildCenterReview childCenterReview) {
             return ReviewResponse.builder()
                     .id(childCenterReview.getId())
                     .name(childCenterReview.getAccount().getName())
@@ -65,7 +65,7 @@ public class ReviewDto {
                     .build();
         }
 
-        public static ReviewResponse ofChildCareReviewList(ChildCareReview childCareReview) {
+        public static ReviewResponse ofChildCareReview(ChildCareReview childCareReview) {
             return ReviewResponse.builder()
                     .id(childCareReview.getId())
                     .name(childCareReview.getAccount().getName())
@@ -84,6 +84,53 @@ public class ReviewDto {
 
         public static ReviewListResponse of(List<ReviewResponse> list) {
             return new ReviewListResponse(list);
+        }
+    }
+
+    public record MyReviewResponse(
+            Long id,
+            String name,
+            String content,
+            String createdAt,
+            String targetType,
+            Long targetId
+    ) {
+        @Builder
+        public MyReviewResponse {
+        }
+
+        public static MyReviewResponse ofMyChildCenterReview(ChildCenterReview childCenterReview) {
+            return MyReviewResponse.builder()
+                    .id(childCenterReview.getId())
+                    .name(childCenterReview.getAccount().getName())
+                    .content(childCenterReview.getContent())
+                    .createdAt(childCenterReview.getCreatedAt())
+                    .targetType("childCenterInfo")
+                    .targetId(childCenterReview.getChildCenterInfo().getId())
+                    .build();
+        }
+
+        public static MyReviewResponse ofMyChildCareReview(ChildCareReview childCareReview) {
+            return MyReviewResponse.builder()
+                    .id(childCareReview.getId())
+                    .name(childCareReview.getAccount().getName())
+                    .content(childCareReview.getContent())
+                    .createdAt(childCareReview.getCreatedAt())
+                    .targetType("childCareInfo")
+                    .targetId(childCareReview.getChildCareInfo().getId())
+                    .build();
+        }
+    }
+
+    public record MyReviewListResponse(
+            List<MyReviewResponse> list
+    ) {
+        @Builder
+        public MyReviewListResponse {
+        }
+
+        public static MyReviewListResponse of(List<MyReviewResponse> list) {
+            return new MyReviewListResponse(list);
         }
     }
 

@@ -52,4 +52,10 @@ public class ReviewController {
         Account account = accountService.getCurrentAccount();
         return ResponseEntity.ok(reviewService.getReviewListByChildCenterInfo(account, centerInfoId));
     }
+
+    @GetMapping("/me")
+    public ResponseEntity<MyReviewListResponse> getReviewListByAccount() {
+        Account account = accountService.getCurrentAccount();
+        return ResponseEntity.ok(reviewService.getReviewListByAccount(account));
+    }
 }

@@ -14,6 +14,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class ReviewService {
@@ -68,12 +71,12 @@ public class ReviewService {
 
     public ReviewListResponse getReviewListByChildCareInfo(Account account, Long careInfoId) {
         return ReviewListResponse.of(childCareReviewRepository.findAllByChildCareInfoIdAndIsVisible(careInfoId, true)
-                .stream().map(ReviewResponse::ofChildCareReviewList).toList());
+                .stream().map(ReviewResponse::ofChildCareReview).toList());
     }
 
     public ReviewListResponse getReviewListByChildCenterInfo(Account account, Long centerInfoId) {
         return ReviewListResponse.of(childCenterReviewRepository.findAllByChildCenterInfoIdAndIsVisible(centerInfoId, true)
-                .stream().map(ReviewResponse::ofChildCenterReviewList).toList());
+                .stream().map(ReviewResponse::ofChildCenterReview).toList());
     }
 
     public ChildCareReview findChildCareReview(Long reviewId) {
@@ -92,5 +95,15 @@ public class ReviewService {
     public void checkChildCenterReview(Account account, ChildCenterReview childCenterReview) {
         if (!childCenterReview.getAccount().equals(account)) throw new ReviewException(StatusCode.NOT_REVIEW_WRITER);
         if (!childCenterReview.isVisible()) throw new ReviewException(StatusCode.ALREADY_DELETED_REVIEW);
+    }
+
+    public MyReviewListResponse getReviewListByAccount(Account account) {
+        List<MyReviewResponse> reviewResponseList = new ArrayList<>();
+        reviewResponseList.addAll(childCareReviewRepository.findAllByAccount(account).stream()
+                .map(MyReviewResponse::ofMyChildCareReview).toList());
+        reviewResponseList.addAll(childCenterReviewRepository.findAllByAccount(account).stream()
+                .map(MyReviewResponse::ofMyChildCenterReview).toList());
+        reviewResponseList.sort((o1, o2) -> o2.createdAt().compareTo(o1.createdAt()));
+        return MyReviewListResponse.of(reviewResponseList);
     }
 }
