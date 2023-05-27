@@ -1,8 +1,8 @@
 package SeoulBomo.SeoulBomoBe.domain.review.service;
 
+import SeoulBomo.SeoulBomoBe.common.ChildInfoType;
 import SeoulBomo.SeoulBomoBe.common.exception.StatusCode;
 import SeoulBomo.SeoulBomoBe.domain.account.model.Account;
-import SeoulBomo.SeoulBomoBe.domain.account.service.AccountService;
 import SeoulBomo.SeoulBomoBe.domain.childCareInfo.service.ChildCareInfoService;
 import SeoulBomo.SeoulBomoBe.domain.childCenterInfo.service.ChildCenterInfoService;
 import SeoulBomo.SeoulBomoBe.domain.review.dto.ReviewDto.*;
@@ -15,72 +15,69 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class ReviewService {
-    private final AccountService accountService;
     private final ChildCenterInfoService childCenterInfoService;
     private final ChildCareInfoService childCareInfoService;
 
     private final ChildCareReviewRepository childCareReviewRepository;
     private final ChildCenterReviewRepository childCenterReviewRepository;
 
-    public ReviewIdResponse createChildCareReview(Long careInfoId, ReviewRequest reviewRequest) {
-        Account account = accountService.getCurrentAccount();
-        ChildCareReview childCareReview = reviewRequest.toChildCareReview(childCareInfoService.findChildCareInfo(careInfoId), account);
-        childCareReviewRepository.save(childCareReview);
-        return ReviewIdResponse.of(childCareReview.getId());
-    }
-
-    public ReviewIdResponse createChildCenterReview(Long centerInfoId, ReviewRequest reviewRequest) {
-        Account account = accountService.getCurrentAccount();
-        ChildCenterReview childCenterReview = reviewRequest.toChildCenterReview(childCenterInfoService.findChildCenterInfo(centerInfoId), account);
-        childCenterReviewRepository.save(childCenterReview);
-        return ReviewIdResponse.of(childCenterReview.getId());
-    }
-
-    @Transactional
-    public ReviewIdResponse updateChildCareReview(Long reviewId, ReviewRequest reviewRequest) {
-        ChildCareReview childCareReview = findChildCareReview(reviewId);
-        checkChildCareReview(childCareReview);
-        childCareReview.update(reviewRequest.content());
-        childCareReviewRepository.save(childCareReview);
-        return ReviewIdResponse.of(childCareReview.getId());
+    public ReviewIdResponse createReview(Account account, CreateReviewRequest createReviewRequest) {
+        if (createReviewRequest.targetType().equalsIgnoreCase(ChildInfoType.CHILDCAREINFO.toString())) {
+            ChildCareReview childCareReview = createReviewRequest.toChildCareReview(childCareInfoService.findChildCareInfo(createReviewRequest.targetId()), account);
+            childCareReviewRepository.save(childCareReview);
+            return ReviewIdResponse.of(childCareReview.getId());
+        } else {
+            ChildCenterReview childCenterReview = createReviewRequest.toChildCenterReview(childCenterInfoService.findChildCenterInfo(createReviewRequest.targetId()), account);
+            childCenterReviewRepository.save(childCenterReview);
+            return ReviewIdResponse.of(childCenterReview.getId());
+        }
     }
 
     @Transactional
-    public ReviewIdResponse updateChildCenterReview(Long reviewId, ReviewRequest reviewRequest) {
-        ChildCenterReview childCenterReview = findChildCenterReview(reviewId);
-        checkChildCenterReview(childCenterReview);
-        childCenterReview.update(reviewRequest.content());
-        childCenterReviewRepository.save(childCenterReview);
-        return ReviewIdResponse.of(childCenterReview.getId());
+    public ReviewIdResponse updateReview(Account account, Long reviewId, UpdateReviewRequest updateReviewRequest) {
+        if (updateReviewRequest.targetType().equalsIgnoreCase(ChildInfoType.CHILDCAREINFO.toString())) {
+            ChildCareReview childCareReview = findChildCareReview(reviewId);
+            checkChildCareReview(account, childCareReview);
+            childCareReview.update(updateReviewRequest.content());
+            childCareReviewRepository.save(childCareReview);
+            return ReviewIdResponse.of(childCareReview.getId());
+        } else {
+            ChildCenterReview childCenterReview = findChildCenterReview(reviewId);
+            checkChildCenterReview(account, childCenterReview);
+            childCenterReview.update(updateReviewRequest.content());
+            childCenterReviewRepository.save(childCenterReview);
+            return ReviewIdResponse.of(childCenterReview.getId());
+        }
     }
 
     @Transactional
-    public ReviewMessage deleteChildCareReview(Long reviewId) {
-        ChildCareReview childCareReview = findChildCareReview(reviewId);
-        checkChildCareReview(childCareReview);
-        childCareReview.softDelete();
+    public ReviewMessage deleteReview(Account account, Long reviewId, String targetType) {
+        if (targetType.equalsIgnoreCase(ChildInfoType.CHILDCAREINFO.toString())) {
+            ChildCareReview childCareReview = findChildCareReview(reviewId);
+            checkChildCareReview(account, childCareReview);
+            childCareReview.softDelete();
+        } else {
+            ChildCenterReview childCenterReview = findChildCenterReview(reviewId);
+            checkChildCenterReview(account, childCenterReview);
+            childCenterReview.softDelete();
+        }
         return ReviewMessage.of(reviewId + ", Delete Success");
     }
 
-    @Transactional
-    public ReviewMessage deleteChildCenterReview(Long reviewId) {
-        ChildCenterReview childCenterReview = findChildCenterReview(reviewId);
-        checkChildCenterReview(childCenterReview);
-        childCenterReview.softDelete();
-        return ReviewMessage.of(reviewId + ", Delete Success");
+    public ReviewListResponse getReviewListByChildCareInfo(Account account, Long careInfoId) {
+        return ReviewListResponse.of(childCareReviewRepository.findAllByChildCareInfoIdAndIsVisible(careInfoId, true)
+                .stream().map(ReviewResponse::ofChildCareReview).toList());
     }
 
-    public ReviewListResponse getReviewListByChildCareInfo(Long careInfoId) {
-        return ReviewListResponse.of(childCareReviewRepository.findAllByChildCareInfoId(careInfoId)
-                .stream().map(ReviewResponse::ofChildCareReviewList).toList());
-    }
-
-    public ReviewListResponse getReviewListByChildCenterInfo(Long centerInfoId) {
-        return ReviewListResponse.of(childCenterReviewRepository.findAllByChildCenterInfoId(centerInfoId).stream()
-                .map(ReviewResponse::ofChildCenterReviewList).toList());
+    public ReviewListResponse getReviewListByChildCenterInfo(Account account, Long centerInfoId) {
+        return ReviewListResponse.of(childCenterReviewRepository.findAllByChildCenterInfoIdAndIsVisible(centerInfoId, true)
+                .stream().map(ReviewResponse::ofChildCenterReview).toList());
     }
 
     public ChildCareReview findChildCareReview(Long reviewId) {
@@ -91,15 +88,23 @@ public class ReviewService {
         return childCenterReviewRepository.findById(reviewId).orElseThrow(() -> new ReviewException(StatusCode.NOT_FOUND_REVIEW));
     }
 
-    public void checkChildCareReview(ChildCareReview childCareReview) {
-        Account account = accountService.getCurrentAccount();
+    public void checkChildCareReview(Account account, ChildCareReview childCareReview) {
         if (!childCareReview.getAccount().equals(account)) throw new ReviewException(StatusCode.NOT_REVIEW_WRITER);
         if (!childCareReview.isVisible()) throw new ReviewException(StatusCode.ALREADY_DELETED_REVIEW);
     }
 
-    public void checkChildCenterReview(ChildCenterReview childCenterReview) {
-        Account account = accountService.getCurrentAccount();
+    public void checkChildCenterReview(Account account, ChildCenterReview childCenterReview) {
         if (!childCenterReview.getAccount().equals(account)) throw new ReviewException(StatusCode.NOT_REVIEW_WRITER);
         if (!childCenterReview.isVisible()) throw new ReviewException(StatusCode.ALREADY_DELETED_REVIEW);
+    }
+
+    public MyReviewListResponse getReviewListByAccount(Account account) {
+        List<MyReviewResponse> reviewResponseList = new ArrayList<>();
+        reviewResponseList.addAll(childCareReviewRepository.findAllByAccount(account).stream()
+                .map(MyReviewResponse::ofMyChildCareReview).toList());
+        reviewResponseList.addAll(childCenterReviewRepository.findAllByAccount(account).stream()
+                .map(MyReviewResponse::ofMyChildCenterReview).toList());
+        reviewResponseList.sort((o1, o2) -> o2.createdAt().compareTo(o1.createdAt()));
+        return MyReviewListResponse.of(reviewResponseList);
     }
 }

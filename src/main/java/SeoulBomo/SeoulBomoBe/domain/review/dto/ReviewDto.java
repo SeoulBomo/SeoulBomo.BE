@@ -1,5 +1,6 @@
 package SeoulBomo.SeoulBomoBe.domain.review.dto;
 
+import SeoulBomo.SeoulBomoBe.common.ChildInfoType;
 import SeoulBomo.SeoulBomoBe.domain.account.model.Account;
 import SeoulBomo.SeoulBomoBe.domain.childCareInfo.model.ChildCareInfo;
 import SeoulBomo.SeoulBomoBe.domain.childCenterInfo.model.ChildCenterInfo;
@@ -11,11 +12,13 @@ import java.util.List;
 
 public class ReviewDto {
 
-    public record ReviewRequest(
+    public record CreateReviewRequest(
+            String targetType,
+            Long targetId,
             String content
     ) {
         @Builder
-        public ReviewRequest {
+        public CreateReviewRequest {
         }
 
         public ChildCenterReview toChildCenterReview(ChildCenterInfo childCenterInfo, Account account) {
@@ -35,6 +38,15 @@ public class ReviewDto {
         }
     }
 
+    public record UpdateReviewRequest(
+            String targetType,
+            String content
+    ) {
+        @Builder
+        public UpdateReviewRequest {
+        }
+    }
+
     public record ReviewResponse(
             Long id,
             String name,
@@ -45,7 +57,7 @@ public class ReviewDto {
         public ReviewResponse {
         }
 
-        public static ReviewResponse ofChildCenterReviewList(ChildCenterReview childCenterReview) {
+        public static ReviewResponse ofChildCenterReview(ChildCenterReview childCenterReview) {
             return ReviewResponse.builder()
                     .id(childCenterReview.getId())
                     .name(childCenterReview.getAccount().getName())
@@ -54,7 +66,7 @@ public class ReviewDto {
                     .build();
         }
 
-        public static ReviewResponse ofChildCareReviewList(ChildCareReview childCareReview) {
+        public static ReviewResponse ofChildCareReview(ChildCareReview childCareReview) {
             return ReviewResponse.builder()
                     .id(childCareReview.getId())
                     .name(childCareReview.getAccount().getName())
@@ -73,6 +85,53 @@ public class ReviewDto {
 
         public static ReviewListResponse of(List<ReviewResponse> list) {
             return new ReviewListResponse(list);
+        }
+    }
+
+    public record MyReviewResponse(
+            Long id,
+            String name,
+            String content,
+            String createdAt,
+            String targetType,
+            Long targetId
+    ) {
+        @Builder
+        public MyReviewResponse {
+        }
+
+        public static MyReviewResponse ofMyChildCenterReview(ChildCenterReview childCenterReview) {
+            return MyReviewResponse.builder()
+                    .id(childCenterReview.getId())
+                    .name(childCenterReview.getAccount().getName())
+                    .content(childCenterReview.getContent())
+                    .createdAt(childCenterReview.getCreatedAt())
+                    .targetType(ChildInfoType.CHILDCENTERINFO.getDetail())
+                    .targetId(childCenterReview.getChildCenterInfo().getId())
+                    .build();
+        }
+
+        public static MyReviewResponse ofMyChildCareReview(ChildCareReview childCareReview) {
+            return MyReviewResponse.builder()
+                    .id(childCareReview.getId())
+                    .name(childCareReview.getAccount().getName())
+                    .content(childCareReview.getContent())
+                    .createdAt(childCareReview.getCreatedAt())
+                    .targetType(ChildInfoType.CHILDCAREINFO.getDetail())
+                    .targetId(childCareReview.getChildCareInfo().getId())
+                    .build();
+        }
+    }
+
+    public record MyReviewListResponse(
+            List<MyReviewResponse> list
+    ) {
+        @Builder
+        public MyReviewListResponse {
+        }
+
+        public static MyReviewListResponse of(List<MyReviewResponse> list) {
+            return new MyReviewListResponse(list);
         }
     }
 

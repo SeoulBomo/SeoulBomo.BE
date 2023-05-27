@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/accounts")
 public class AccountController {
-    private final AccountService loginService;
+    private final AccountService accountService;
 
     @CrossOrigin("localhost:3000")
     @PostMapping("/oauth/login")
     public LoginResponse login(@RequestBody LoginRequest LoginRequest, HttpServletResponse res) {
-        return loginService.login(LoginRequest, res);
+        return accountService.login(LoginRequest, res);
     }
 }

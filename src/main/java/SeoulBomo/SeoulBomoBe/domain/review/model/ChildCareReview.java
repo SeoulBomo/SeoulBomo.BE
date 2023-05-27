@@ -19,7 +19,7 @@ public class ChildCareReview extends BaseEntity {
     private String content;
 
     // 보육 정보 리뷰(다) - 회원(1)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id")
     private Account account;
 
