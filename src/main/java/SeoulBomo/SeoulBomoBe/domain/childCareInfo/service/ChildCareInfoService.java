@@ -83,8 +83,8 @@ public class ChildCareInfoService {
                                 infoType,
                                 borough,
                                 ageType,
-                                (String) temp.get("X_CRDNT_VALUE"),
                                 (String) temp.get("Y_CRDNT_VALUE"),
+                                (String) temp.get("X_CRDNT_VALUE"),
                                 temp.get("BASS_ADRES") + (String) temp.get("DETAIL_ADRES"),
                                 (String) temp.get("PLGRDCO"),
                                 (temp.get("RNTFEE_FREE_AT")).equals("Y"),
@@ -108,7 +108,7 @@ public class ChildCareInfoService {
 
     public ChildCareInfoResponse getChildCareInfo(Long childCareInfoId) {
         ChildCareInfo childCareInfo = findChildCareInfo(childCareInfoId);
-        return ChildCareInfoResponse.of(childCareInfo, childCareReviewRepository.countByChildCareInfo(childCareInfo), childCareLikeRepository.countByChildCareInfo(childCareInfo));
+        return ChildCareInfoResponse.of(childCareInfo, childCareReviewRepository.countByChildCareInfo(childCareInfo), childCareLikeRepository.countByChildCareInfo(childCareInfo.getId()));
     }
 
     public PopularChildCareInfoRespose getChildCareInfoListByPopularity() {
