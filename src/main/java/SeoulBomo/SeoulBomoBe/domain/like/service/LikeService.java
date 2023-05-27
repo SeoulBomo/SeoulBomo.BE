@@ -15,28 +15,27 @@ import SeoulBomo.SeoulBomoBe.domain.like.model.ChildCareLike;
 import SeoulBomo.SeoulBomoBe.domain.like.model.ChildCenterLike;
 import SeoulBomo.SeoulBomoBe.domain.like.repository.ChildCareLikeRepository;
 import SeoulBomo.SeoulBomoBe.domain.like.repository.ChildCenterLikeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static SeoulBomo.SeoulBomoBe.domain.like.dto.ChildCareLikeDto.*;
 
 @Service
+@AllArgsConstructor
 public class LikeService {
 
-    @Autowired
-    private ChildCareLikeRepository childCareLikeRepository;
+    private final ChildCareLikeRepository childCareLikeRepository;
 
-    @Autowired
-    private ChildCenterLikeRepository childCenterLikeRepository;
+    private final ChildCenterLikeRepository childCenterLikeRepository;
 
-    @Autowired
-    private AccountRepository accountRepository;
+    private final AccountRepository accountRepository;
 
-    @Autowired
-    private ChildCareInfoRepository childCareInfoRepository;
+    private final ChildCareInfoRepository childCareInfoRepository;
 
-    @Autowired
-    private ChildCenterInfoRepository childCenterInfoRepository;
+    private final ChildCenterInfoRepository childCenterInfoRepository;
 
     public String childCareInfoLike(ChildCareLikeRequest childCareLikeRequest) {
         Long userId = childCareLikeRequest.userId();
@@ -88,5 +87,31 @@ public class LikeService {
             }
         }
         return "SUCCESS";
+    }
+
+    public List<Object> getLikeList(Long userId) {
+        List<ChildCenterLike> centerLikeList = childCenterLikeRepository.findAllByAccount_Id(userId);
+        List<ChildCenterInfo> centerList = new ArrayList<>();
+
+        for(ChildCenterLike info : centerLikeList){
+            ChildCenterInfo childCenterInfo = childCenterInfoRepository.findById(info.getId())
+                    .orElseThrow(() -> new ChildCenterInfoException(StatusCode.NOT_FOUND_CHILDCENTER));
+            centerList.add(childCenterInfo);
+        }
+
+        List<ChildCareLike> careLikeList = childCareLikeRepository.findAllByAccount_Id(userId);
+        List<ChildCareInfo> careInfoList = new ArrayList<>();
+
+        for(ChildCareLike info : careLikeList){
+            ChildCareInfo childCareInfo = childCareInfoRepository.findById(info.getId())
+                    .orElseThrow(() -> new ChildCenterInfoException(StatusCode.NOT_FOUND_CHILDCARE));
+            careInfoList.add(childCareInfo);
+        }
+
+        List<Object> result = new ArrayList<>();
+        result.add(centerList);
+        result.add(careInfoList);
+
+        return result;
     }
 }

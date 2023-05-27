@@ -1,22 +1,25 @@
 package SeoulBomo.SeoulBomoBe.domain.like.controller;
 
+import SeoulBomo.SeoulBomoBe.domain.account.model.Account;
+import SeoulBomo.SeoulBomoBe.domain.account.service.AccountService;
 import SeoulBomo.SeoulBomoBe.domain.like.service.LikeService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static SeoulBomo.SeoulBomoBe.domain.like.dto.ChildCareLikeDto.*;
 
 @RestController
 @RequestMapping("/api/v1/like")
+@AllArgsConstructor
 public class LikeController {
 
-    @Autowired
-    private LikeService likeService;
+    private final LikeService likeService;
+
+    private final AccountService accountService;
 
     @PostMapping ("/care-info")
     public ResponseEntity careInfoLike(@RequestBody ChildCareLikeRequest childCareLikeRequest){
@@ -28,5 +31,12 @@ public class LikeController {
     public ResponseEntity centerInfoLike(@RequestBody ChildCenterLikeRequest childCenterLikeRequest){
         String result = likeService.childCenterInfoLike(childCenterLikeRequest);
         return new ResponseEntity(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity myLike(){
+        Account account = accountService.getCurrentAccount();
+        List<Object> list = likeService.getLikeList(account.getId());
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 }

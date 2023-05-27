@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -22,4 +23,7 @@ public interface ChildCareLikeRepository extends JpaRepository<ChildCareLike, Lo
     boolean existsByAccount_IdAndChildCareInfo_Id(Long userId, Long infoId);
 
     Long countByChildCareInfo(ChildCareInfo childCareInfo);
+
+    List<ChildCareLike> findAllByAccount_Id(Long userId);
+
 }
