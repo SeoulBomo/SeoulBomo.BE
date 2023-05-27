@@ -9,6 +9,8 @@ import SeoulBomo.SeoulBomoBe.domain.childCareInfo.model.AgeType;
 import SeoulBomo.SeoulBomoBe.domain.childCareInfo.model.ChildCareInfo;
 import SeoulBomo.SeoulBomoBe.domain.childCareInfo.model.InfoType;
 import SeoulBomo.SeoulBomoBe.domain.childCareInfo.repositrory.ChildCareInfoRepository;
+import SeoulBomo.SeoulBomoBe.domain.like.repository.ChildCareLikeRepository;
+import SeoulBomo.SeoulBomoBe.domain.review.repository.ChildCareReviewRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
@@ -28,8 +30,8 @@ import java.net.URL;
 public class ChildCareInfoService {
 
     private final ChildCareInfoRepository childCareInfoRepository;
-  /*  private final ChildCareReviewRepository childCareReviewRepository;
-    private final ChildCareLikeRepository childCareLikeRepository;*/
+    private final ChildCareReviewRepository childCareReviewRepository;
+    private final ChildCareLikeRepository childCareLikeRepository;
 
     public PageResponse<ChildCareInfoListResponse> getChildCareInfoList(Pageable pageable, String infoType, String ageType) {
         InfoType info = InfoType.valueOf(infoType);
@@ -39,7 +41,6 @@ public class ChildCareInfoService {
 
         return PageResponse.of(childCareInfoRepository.findAllByInfoTypeAndAgeType(pageable, info, age).map(ChildCareInfoListResponse::of));
     }
-
 
     public String saveChildCareInfo() {
         for (int j = 0; j < 5; j++) {
@@ -107,8 +108,7 @@ public class ChildCareInfoService {
 
     public ChildCareInfoResponse getChildCareInfo(Long childCareInfoId) {
         ChildCareInfo childCareInfo = findChildCareInfo(childCareInfoId);
-        //return ChildCareInfoResponse.of(childCareInfo, childCareReviewRepository.countByChildCareInfo(), childCareLikeRepository.countByChildCareInfo());
-        return ChildCareInfoResponse.of(childCareInfo, 0L, 0L);
+        return ChildCareInfoResponse.of(childCareInfo, childCareReviewRepository.countByChildCareInfo(childCareInfo), childCareLikeRepository.countByChildCareInfo(childCareInfo));
     }
 
     public PopularChildCareInfoRespose getChildCareInfoListByPopularity() {
@@ -120,7 +120,7 @@ public class ChildCareInfoService {
     }
 
     public ChildCareInfo findChildCareInfo(Long childCareInfoId) {
-    	return childCareInfoRepository.findById(childCareInfoId)
-    			.orElseThrow(() -> new ChildCareInfoException(StatusCode.NOT_FOUND_CHILDCARE));
+        return childCareInfoRepository.findById(childCareInfoId)
+                .orElseThrow(() -> new ChildCareInfoException(StatusCode.NOT_FOUND_CHILDCARE));
     }
 }

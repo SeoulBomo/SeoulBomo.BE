@@ -1,5 +1,6 @@
 package SeoulBomo.SeoulBomoBe.domain.like.repository;
 
+import SeoulBomo.SeoulBomoBe.domain.childCareInfo.model.ChildCareInfo;
 import SeoulBomo.SeoulBomoBe.domain.like.model.ChildCareLike;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -19,4 +20,6 @@ public interface ChildCareLikeRepository extends JpaRepository<ChildCareLike, Lo
     void updateDeletedFalse(Long id);
 
     boolean existsByAccount_IdAndChildCareInfo_Id(Long userId, Long infoId);
+
+    Long countByChildCareInfo(ChildCareInfo childCareInfo);
 }
