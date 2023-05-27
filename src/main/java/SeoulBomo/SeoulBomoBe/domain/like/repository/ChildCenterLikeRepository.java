@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -20,4 +21,6 @@ public interface ChildCenterLikeRepository extends JpaRepository<ChildCenterLike
     boolean existsByAccount_IdAndChildCenterInfo_Id(Long userId, Long infoId);
 
     Long countByChildCenterInfo(ChildCenterInfo centerInfo);
+
+    List<ChildCenterLike> findAllByAccount_Id(Long userId);
 }
