@@ -42,6 +42,7 @@ public class LikeService {
         Long infoId = childCareLikeRequest.careInfoId();
 
         boolean likeInfo = childCareLikeRepository.existsByAccount_IdAndChildCareInfo_Id(userId, infoId);
+        String result = "";
 
         if(!likeInfo){ //정보가 없는 경우
             Account account = accountRepository.findById(userId)
@@ -49,44 +50,51 @@ public class LikeService {
             ChildCareInfo childCareInfo = childCareInfoRepository.findById(infoId)
                     .orElseThrow(() -> new ChildCareInfoException(StatusCode.NOT_FOUND_CHILDCARE));
             childCareLikeRepository.save(new ChildCareLike(account, childCareInfo));
+            result = "스크랩 저장 완료";
         }
         else if(likeInfo){ //정보가 있는 경우
             ChildCareLike childCareLike = childCareLikeRepository.findByAccount_IdAndChildCareInfo_Id(userId, infoId)
                     .orElseThrow(() -> new LikeException(StatusCode.NOT_FOUND_LIKE));
             if(childCareLike.isDeleted()){ // deleted 값이 true인 경우
                 childCareLikeRepository.updateDeletedFalse(childCareLike.getId());
+                result = "스크랩 저장 완료";
             }
             else if(!childCareLike.isDeleted()){ // deleted 값이 false인 경우
                 childCareLikeRepository.deleteById(childCareLike.getId());
+                result = "스크랩 취소 완료";
             }
         }
-        return "SUCCESS";
+        return result;
     }
 
     public String childCenterInfoLike(ChildCenterLikeRequest childCenterLikeRequest) {
         Long userId = childCenterLikeRequest.userId();
         Long centerId = childCenterLikeRequest.centerId();
 
-        boolean centerInfo = childCenterLikeRepository.existsByAccount_IdAndChildCenterInfo_Id(userId, centerId);
+        boolean likeInfo = childCenterLikeRepository.existsByAccount_IdAndChildCenterInfo_Id(userId, centerId);
+        String result = "";
 
-        if(!centerInfo){ //정보가 없는 경우
+        if(!likeInfo){ //정보가 없는 경우
             Account account = accountRepository.findById(userId)
                     .orElseThrow(() -> new AccountException(StatusCode.NOT_FOUND_ACCOUNT));
             ChildCenterInfo childCenterInfo = childCenterInfoRepository.findById(centerId)
                     .orElseThrow(() -> new ChildCenterInfoException(StatusCode.NOT_FOUND_CHILDCENTER));
             childCenterLikeRepository.save(new ChildCenterLike(account, childCenterInfo));
+            result = "스크랩 저장 완료";
         }
-        else if(centerInfo){ //정보가 있는 경우
+        else if(likeInfo){ //정보가 있는 경우
             ChildCenterLike childCenterLike = childCenterLikeRepository.findByAccount_IdAndChildCenterInfo_Id(userId, centerId)
                     .orElseThrow(() -> new LikeException(StatusCode.NOT_FOUND_LIKE));
             if(childCenterLike.isDeleted()){ // deleted 값이 true인 경우
                 childCenterLikeRepository.updateDeletedFalse(childCenterLike.getId());
+                result = "스크랩 저장 완료";
             }
             else if(!childCenterLike.isDeleted()){ // deleted 값이 false인 경우
                 childCenterLikeRepository.deleteById(childCenterLike.getId());
+                result = "스크랩 취소 완료";
             }
         }
-        return "SUCCESS";
+        return result;
     }
 
     public List<Object> getLikeList(Long userId) {

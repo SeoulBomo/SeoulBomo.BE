@@ -57,7 +57,7 @@ public class ChildCenterInfoService {
     public ChildCenterDetailResponse findVerifiedCenterInfo(Long id) {
         ChildCenterInfo centerInfo = childCenterInfoRepository.findById(id)
                 .orElseThrow(() -> new ChildCenterInfoException(StatusCode.NOT_FOUND_CHILDCARE));
-        return ChildCenterDetailResponse.of(centerInfo, childCenterReviewRepository.countByChildCenterInfo(centerInfo), childCenterLikeRepository.countByChildCenterInfo(centerInfo));
+        return ChildCenterDetailResponse.of(centerInfo, childCenterReviewRepository.countByChildCenterInfo(centerInfo), childCenterLikeRepository.countByChildCenterInfo(centerInfo.getId()));
     }
 
     public PageResponse<ChildCenterBoroughListResponse> findBoroughCenterList(Pageable pageable, String borough, String centerType) {
