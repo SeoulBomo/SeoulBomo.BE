@@ -1,5 +1,6 @@
 package SeoulBomo.SeoulBomoBe.domain.review.service;
 
+import SeoulBomo.SeoulBomoBe.common.ChildInfoType;
 import SeoulBomo.SeoulBomoBe.common.exception.StatusCode;
 import SeoulBomo.SeoulBomoBe.domain.account.model.Account;
 import SeoulBomo.SeoulBomoBe.domain.childCareInfo.service.ChildCareInfoService;
@@ -27,7 +28,7 @@ public class ReviewService {
     private final ChildCenterReviewRepository childCenterReviewRepository;
 
     public ReviewIdResponse createReview(Account account, CreateReviewRequest createReviewRequest) {
-        if (createReviewRequest.targetType().equalsIgnoreCase("CHILDCAREINFO")) {
+        if (createReviewRequest.targetType().equalsIgnoreCase(ChildInfoType.CHILDCAREINFO.toString())) {
             ChildCareReview childCareReview = createReviewRequest.toChildCareReview(childCareInfoService.findChildCareInfo(createReviewRequest.targetId()), account);
             childCareReviewRepository.save(childCareReview);
             return ReviewIdResponse.of(childCareReview.getId());
@@ -40,7 +41,7 @@ public class ReviewService {
 
     @Transactional
     public ReviewIdResponse updateReview(Account account, Long reviewId, UpdateReviewRequest updateReviewRequest) {
-        if (updateReviewRequest.targetType().equalsIgnoreCase("CHILDCAREINFO")) {
+        if (updateReviewRequest.targetType().equalsIgnoreCase(ChildInfoType.CHILDCAREINFO.toString())) {
             ChildCareReview childCareReview = findChildCareReview(reviewId);
             checkChildCareReview(account, childCareReview);
             childCareReview.update(updateReviewRequest.content());
@@ -57,7 +58,7 @@ public class ReviewService {
 
     @Transactional
     public ReviewMessage deleteReview(Account account, Long reviewId, String targetType) {
-        if (targetType.equalsIgnoreCase("CHILDCAREINFO")) {
+        if (targetType.equalsIgnoreCase(ChildInfoType.CHILDCAREINFO.toString())) {
             ChildCareReview childCareReview = findChildCareReview(reviewId);
             checkChildCareReview(account, childCareReview);
             childCareReview.softDelete();

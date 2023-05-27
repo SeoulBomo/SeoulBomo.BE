@@ -1,5 +1,6 @@
 package SeoulBomo.SeoulBomoBe.domain.review.dto;
 
+import SeoulBomo.SeoulBomoBe.common.ChildInfoType;
 import SeoulBomo.SeoulBomoBe.domain.account.model.Account;
 import SeoulBomo.SeoulBomoBe.domain.childCareInfo.model.ChildCareInfo;
 import SeoulBomo.SeoulBomoBe.domain.childCenterInfo.model.ChildCenterInfo;
@@ -105,7 +106,7 @@ public class ReviewDto {
                     .name(childCenterReview.getAccount().getName())
                     .content(childCenterReview.getContent())
                     .createdAt(childCenterReview.getCreatedAt())
-                    .targetType("childCenterInfo")
+                    .targetType(ChildInfoType.CHILDCENTERINFO.getDetail())
                     .targetId(childCenterReview.getChildCenterInfo().getId())
                     .build();
         }
@@ -116,7 +117,7 @@ public class ReviewDto {
                     .name(childCareReview.getAccount().getName())
                     .content(childCareReview.getContent())
                     .createdAt(childCareReview.getCreatedAt())
-                    .targetType("childCareInfo")
+                    .targetType(ChildInfoType.CHILDCAREINFO.getDetail())
                     .targetId(childCareReview.getChildCareInfo().getId())
                     .build();
         }
