@@ -18,7 +18,7 @@ public abstract class BaseEntity {
 
     protected String createdAt;
     protected String modifiedAt;
-    protected boolean visibility = true;
+    protected boolean isVisible = true;
 
     private String customFormat() {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
@@ -36,11 +36,11 @@ public abstract class BaseEntity {
     }
 
     public void softDelete() {
-        visibility = false;
+        isVisible = false;
     }
 
     public void setVisible() {
-        visibility = true;
+        isVisible = true;
     }
 
 }

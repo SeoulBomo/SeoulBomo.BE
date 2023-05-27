@@ -1,5 +1,6 @@
 package SeoulBomo.SeoulBomoBe.domain.account.model;
 
+import SeoulBomo.SeoulBomoBe.common.model.BaseEntity;
 import SeoulBomo.SeoulBomoBe.domain.like.model.ChildCareLike;
 import SeoulBomo.SeoulBomoBe.domain.like.model.ChildCenterLike;
 import SeoulBomo.SeoulBomoBe.domain.review.model.ChildCareReview;
@@ -15,7 +16,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Account {
+public class Account extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_id")

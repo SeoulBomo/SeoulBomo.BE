@@ -9,6 +9,8 @@ import SeoulBomo.SeoulBomoBe.domain.childCenterInfo.exception.ChildCenterInfoExc
 import SeoulBomo.SeoulBomoBe.domain.childCenterInfo.repository.ChildCenterInfoRepository;
 import SeoulBomo.SeoulBomoBe.domain.childCenterInfo.model.CenterType;
 import SeoulBomo.SeoulBomoBe.domain.childCenterInfo.model.ChildCenterInfo;
+import SeoulBomo.SeoulBomoBe.domain.like.repository.ChildCenterLikeRepository;
+import SeoulBomo.SeoulBomoBe.domain.review.repository.ChildCenterReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,12 +22,14 @@ import static SeoulBomo.SeoulBomoBe.domain.childCenterInfo.dto.ChildCenterInfoDt
 
 @Service
 public class ChildCenterInfoService {
-
     @Autowired
     private ChildCenterInfoRepository childCenterInfoRepository;
-
     @Autowired
     private ChildCareInfoRepository childCareInfoRepository;
+    @Autowired
+    private ChildCenterReviewRepository childCenterReviewRepository;
+    @Autowired
+    private ChildCenterLikeRepository childCenterLikeRepository;
 
     public List<Object> findBoroughList(String borough) {
         Borough name = Borough.getName(borough);
@@ -53,10 +57,7 @@ public class ChildCenterInfoService {
     public ChildCenterDetailResponse findVerifiedCenterInfo(Long id) {
         ChildCenterInfo centerInfo = childCenterInfoRepository.findById(id)
                 .orElseThrow(() -> new ChildCenterInfoException(StatusCode.NOT_FOUND_CHILDCARE));
-
-        Long reviewCount = 0L;
-        Long likeCount = 0L;
-        return ChildCenterDetailResponse.of(centerInfo, reviewCount, likeCount);
+        return ChildCenterDetailResponse.of(centerInfo, childCenterReviewRepository.countByChildCenterInfo(centerInfo), childCenterLikeRepository.countByChildCenterInfo(centerInfo));
     }
 
     public PageResponse<ChildCenterBoroughListResponse> findBoroughCenterList(Pageable pageable, String borough, String centerType) {

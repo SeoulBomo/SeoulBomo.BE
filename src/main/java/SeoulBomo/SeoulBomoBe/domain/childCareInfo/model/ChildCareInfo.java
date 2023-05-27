@@ -1,6 +1,7 @@
 package SeoulBomo.SeoulBomoBe.domain.childCareInfo.model;
 
 import SeoulBomo.SeoulBomoBe.common.Borough;
+import SeoulBomo.SeoulBomoBe.common.model.BaseEntity;
 import SeoulBomo.SeoulBomoBe.domain.like.model.ChildCareLike;
 import SeoulBomo.SeoulBomoBe.domain.review.model.ChildCareReview;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -15,7 +16,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ChildCareInfo {
+public class ChildCareInfo extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "child_care_info_id")
