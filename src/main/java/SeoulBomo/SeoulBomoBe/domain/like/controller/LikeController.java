@@ -34,9 +34,10 @@ public class LikeController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity myLike(){
-        Account account = accountService.getCurrentAccount();
-        List<Object> list = likeService.getLikeList(account.getId());
+    public ResponseEntity myLike(@RequestParam("userId") Long id){
+        //Account account = accountService.getCurrentAccount();
+        //List<Object> list = likeService.getLikeList(account.getId());
+        List<Object> list = likeService.getLikeList(id);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 }
