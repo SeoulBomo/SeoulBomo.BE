@@ -105,9 +105,9 @@ public class ReviewService {
 
     public MyReviewListResponse getReviewListByAccount(Account account) {
         List<MyReviewResponse> reviewResponseList = new ArrayList<>();
-        reviewResponseList.addAll(childCareReviewRepository.findAllByAccount(account).stream()
+        reviewResponseList.addAll(childCareReviewRepository.findAllByAccountAndIsVisible(account, true).stream()
                 .map(MyReviewResponse::ofMyChildCareReview).toList());
-        reviewResponseList.addAll(childCenterReviewRepository.findAllByAccount(account).stream()
+        reviewResponseList.addAll(childCenterReviewRepository.findAllByAccountAndIsVisible(account, true).stream()
                 .map(MyReviewResponse::ofMyChildCenterReview).toList());
         reviewResponseList.sort((o1, o2) -> o2.createdAt().compareTo(o1.createdAt()));
         return MyReviewListResponse.of(reviewResponseList);

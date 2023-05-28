@@ -12,7 +12,7 @@ import java.util.List;
 public interface ChildCenterReviewRepository extends JpaRepository<ChildCenterReview, Long> {
     List<ChildCenterReview> findAllByChildCenterInfoIdAndIsVisible(Long centerInfoId, boolean isVisible);
 
-    List<ChildCenterReview> findAllByAccount(Account account);
-
     Long countByChildCenterInfo(ChildCenterInfo centerInfo);
+
+    List<ChildCenterReview> findAllByAccountAndIsVisible(Account account, boolean isVisible);
 }

@@ -10,8 +10,8 @@ import java.util.List;
 public interface ChildCareReviewRepository extends JpaRepository<ChildCareReview, Long> {
     List<ChildCareReview> findAllByChildCareInfoIdAndIsVisible(Long careInfoId, boolean isVisible);
 
-    List<ChildCareReview> findAllByAccount(Account account);
-
     Long countByChildCareInfo(ChildCareInfo childCareInfo);
+
+    List<ChildCareReview> findAllByAccountAndIsVisible(Account account, boolean isVisible);
 }
 
