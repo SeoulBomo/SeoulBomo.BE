@@ -98,7 +98,7 @@ public class LikeService {
     }
 
     public List<Object> getLikeList(Long userId) {
-        List<ChildCenterLike> centerLikeList = childCenterLikeRepository.findAllByAccount_Id(userId);
+        List<ChildCenterLike> centerLikeList = childCenterLikeRepository.findByIdAndDeletedFalse(userId);
         List<ChildCenterInfo> centerList = new ArrayList<>();
 
         for(ChildCenterLike info : centerLikeList){
@@ -107,7 +107,7 @@ public class LikeService {
             centerList.add(childCenterInfo);
         }
 
-        List<ChildCareLike> careLikeList = childCareLikeRepository.findAllByAccount_Id(userId);
+        List<ChildCareLike> careLikeList = childCareLikeRepository.findByIdAndDeletedFalse(userId);
         List<ChildCareInfo> careInfoList = new ArrayList<>();
 
         for(ChildCareLike info : careLikeList){
