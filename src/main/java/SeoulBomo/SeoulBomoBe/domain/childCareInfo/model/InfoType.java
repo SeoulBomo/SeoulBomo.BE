@@ -7,31 +7,31 @@ public enum InfoType {
     CULTURE_EVENT
             (
                     "문화행사",
-                    "http://openapi.seoul.go.kr:8088/6542755249616c733434616f756779/json/TnFcltySttusInfo2001/1/300/",
+                    "http://openapi.seoul.go.kr:8088/4c776b6964646b6535394f5965664a/json/TnFcltySttusInfo2001/1/300/",
                     "TnFcltySttusInfo2001"
             ),
     LIBRARY
             (
                     "도서관",
-                    "http://openapi.seoul.go.kr:8088/6542755249616c733434616f756779/json/TnFcltySttusInfo10073/1/300/",
+                    "http://openapi.seoul.go.kr:8088/4c776b6964646b6535394f5965664a/json/TnFcltySttusInfo10073/1/300/",
                     "TnFcltySttusInfo10073"
             ),
     EXPERIENCE_FACILITY
             (
                     "체험시설",
-                    "http://openapi.seoul.go.kr:8088/6542755249616c733434616f756779/json/TnFcltySttusInfo10072/1/300/",
+                    "http://openapi.seoul.go.kr:8088/4c776b6964646b6535394f5965664a/json/TnFcltySttusInfo10072/1/300/",
                     "TnFcltySttusInfo10072"
             ),
     OUTDOOR_FACILITY
             (
                     "야외시설",
-                    "http://openapi.seoul.go.kr:8088/6542755249616c733434616f756779/json/TnFcltySttusInfo10071/1/300/",
+                    "http://openapi.seoul.go.kr:8088/4c776b6964646b6535394f5965664a/json/TnFcltySttusInfo10071/1/300/",
                     "TnFcltySttusInfo10071"
             ),
     MEDICAL_FACILITY
             (
                     "의료시설",
-                    "http://openapi.seoul.go.kr:8088/6542755249616c733434616f756779/json/TnFcltySttusInfo10074/1/300/",
+                    "http://openapi.seoul.go.kr:8088/4c776b6964646b6535394f5965664a/json/TnFcltySttusInfo10074/1/300/",
                     "TnFcltySttusInfo10074"
             );
 
