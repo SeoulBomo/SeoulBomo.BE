@@ -13,5 +13,4 @@ public class ChildCareLikeDto {
             Long centerId
     ){
     }
-
 }

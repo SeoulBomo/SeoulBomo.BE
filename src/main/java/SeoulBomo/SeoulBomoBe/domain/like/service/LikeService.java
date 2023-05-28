@@ -102,7 +102,7 @@ public class LikeService {
         List<ChildCenterInfo> centerList = new ArrayList<>();
 
         for(ChildCenterLike info : centerLikeList){
-            ChildCenterInfo childCenterInfo = childCenterInfoRepository.findById(info.getId())
+            ChildCenterInfo childCenterInfo = childCenterInfoRepository.findById(info.getChildCenterInfo().getId())
                     .orElseThrow(() -> new ChildCenterInfoException(StatusCode.NOT_FOUND_CHILDCENTER));
             centerList.add(childCenterInfo);
         }
@@ -111,7 +111,7 @@ public class LikeService {
         List<ChildCareInfo> careInfoList = new ArrayList<>();
 
         for(ChildCareLike info : careLikeList){
-            ChildCareInfo childCareInfo = childCareInfoRepository.findById(info.getId())
+            ChildCareInfo childCareInfo = childCareInfoRepository.findById(info.getChildCareInfo().getId())
                     .orElseThrow(() -> new ChildCenterInfoException(StatusCode.NOT_FOUND_CHILDCARE));
             careInfoList.add(childCareInfo);
         }
