@@ -51,27 +51,30 @@ public class ReviewDto {
             Long id,
             String name,
             String content,
-            String createdAt
+            String createdAt,
+            Boolean isWriter
     ) {
         @Builder
         public ReviewResponse {
         }
 
-        public static ReviewResponse ofChildCenterReview(ChildCenterReview childCenterReview) {
+        public static ReviewResponse ofChildCenterReview(ChildCenterReview childCenterReview, Boolean isWriter) {
             return ReviewResponse.builder()
                     .id(childCenterReview.getId())
                     .name(childCenterReview.getAccount().getName())
                     .content(childCenterReview.getContent())
                     .createdAt(childCenterReview.getCreatedAt())
+                    .isWriter(isWriter)
                     .build();
         }
 
-        public static ReviewResponse ofChildCareReview(ChildCareReview childCareReview) {
+        public static ReviewResponse ofChildCareReview(ChildCareReview childCareReview, Boolean isWriter) {
             return ReviewResponse.builder()
                     .id(childCareReview.getId())
                     .name(childCareReview.getAccount().getName())
                     .content(childCareReview.getContent())
                     .createdAt(childCareReview.getCreatedAt())
+                    .isWriter(isWriter)
                     .build();
         }
     }
