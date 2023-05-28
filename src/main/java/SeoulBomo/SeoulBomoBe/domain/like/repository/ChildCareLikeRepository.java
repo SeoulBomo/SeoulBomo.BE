@@ -22,7 +22,7 @@ public interface ChildCareLikeRepository extends JpaRepository<ChildCareLike, Lo
 
     boolean existsByAccount_IdAndChildCareInfo_Id(Long userId, Long infoId);
 
-    @Query(value = "SELECT count(case when deleted = 'false' then 1 end) FROM child_center_like WHERE child_care_info_id = :infoId", nativeQuery = true)
+    @Query(value = "SELECT count(case when deleted = 'false' then 1 end) FROM child_care_like WHERE child_care_info_id = :infoId", nativeQuery = true)
     Long countByChildCareInfo(Long infoId);
 
     List<ChildCareLike> findAllByAccount_Id(Long userId);
