@@ -99,7 +99,7 @@ public class AccountService {
             String name = (String) properties.get("nickname");
             String profileImage = (String) properties.get("profile_image");
             Account kakaoAccount;
-            checkEmail(email, name);
+            email = checkEmail(email, name);
             if (!accountRepository.existsByEmail(email)) {
                 kakaoAccount = Account.toEntity(name, email, SocialType.KAKAO, profileImage);
                 accountRepository.save(kakaoAccount);
