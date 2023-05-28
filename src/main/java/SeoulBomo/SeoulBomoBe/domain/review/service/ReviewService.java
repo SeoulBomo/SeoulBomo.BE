@@ -3,6 +3,7 @@ package SeoulBomo.SeoulBomoBe.domain.review.service;
 import SeoulBomo.SeoulBomoBe.common.ChildInfoType;
 import SeoulBomo.SeoulBomoBe.common.exception.StatusCode;
 import SeoulBomo.SeoulBomoBe.domain.account.model.Account;
+import SeoulBomo.SeoulBomoBe.domain.account.repository.AccountRepository;
 import SeoulBomo.SeoulBomoBe.domain.childCareInfo.service.ChildCareInfoService;
 import SeoulBomo.SeoulBomoBe.domain.childCenterInfo.service.ChildCenterInfoService;
 import SeoulBomo.SeoulBomoBe.domain.review.dto.ReviewDto.*;
@@ -27,6 +28,8 @@ public class ReviewService {
     private final ChildCareReviewRepository childCareReviewRepository;
     private final ChildCenterReviewRepository childCenterReviewRepository;
 
+    private final AccountRepository accountRepository;
+
     public ReviewIdResponse createReview(Account account, CreateReviewRequest createReviewRequest) {
         if (createReviewRequest.targetType().equalsIgnoreCase(ChildInfoType.CHILDCAREINFO.toString())) {
             ChildCareReview childCareReview = createReviewRequest.toChildCareReview(childCareInfoService.findChildCareInfo(createReviewRequest.targetId()), account);
@@ -41,15 +44,16 @@ public class ReviewService {
 
     @Transactional
     public ReviewIdResponse updateReview(Account account, Long reviewId, UpdateReviewRequest updateReviewRequest) {
+        Account currentAccount = accountRepository.findById(account.getId()).get();
         if (updateReviewRequest.targetType().equalsIgnoreCase(ChildInfoType.CHILDCAREINFO.toString())) {
             ChildCareReview childCareReview = findChildCareReview(reviewId);
-            checkChildCareReview(account, childCareReview);
+            checkChildCareReview(currentAccount, childCareReview);
             childCareReview.update(updateReviewRequest.content());
             childCareReviewRepository.save(childCareReview);
             return ReviewIdResponse.of(childCareReview.getId());
         } else {
             ChildCenterReview childCenterReview = findChildCenterReview(reviewId);
-            checkChildCenterReview(account, childCenterReview);
+            checkChildCenterReview(currentAccount, childCenterReview);
             childCenterReview.update(updateReviewRequest.content());
             childCenterReviewRepository.save(childCenterReview);
             return ReviewIdResponse.of(childCenterReview.getId());
@@ -58,13 +62,14 @@ public class ReviewService {
 
     @Transactional
     public ReviewMessage deleteReview(Account account, Long reviewId, String targetType) {
+        Account currentAccount = accountRepository.findById(account.getId()).get();
         if (targetType.equalsIgnoreCase(ChildInfoType.CHILDCAREINFO.toString())) {
             ChildCareReview childCareReview = findChildCareReview(reviewId);
-            checkChildCareReview(account, childCareReview);
+            checkChildCareReview(currentAccount, childCareReview);
             childCareReview.softDelete();
         } else {
             ChildCenterReview childCenterReview = findChildCenterReview(reviewId);
-            checkChildCenterReview(account, childCenterReview);
+            checkChildCenterReview(currentAccount, childCenterReview);
             childCenterReview.softDelete();
         }
         return ReviewMessage.of(reviewId + ", Delete Success");
