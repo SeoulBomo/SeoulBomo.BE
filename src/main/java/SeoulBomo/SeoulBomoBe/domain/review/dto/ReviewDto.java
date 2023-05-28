@@ -97,7 +97,8 @@ public class ReviewDto {
             String content,
             String createdAt,
             String targetType,
-            Long targetId
+            Long targetId,
+            String targetName
     ) {
         @Builder
         public MyReviewResponse {
@@ -111,6 +112,7 @@ public class ReviewDto {
                     .createdAt(childCenterReview.getCreatedAt())
                     .targetType(ChildInfoType.CHILDCENTERINFO.getDetail())
                     .targetId(childCenterReview.getChildCenterInfo().getId())
+                    .targetName(childCenterReview.getChildCenterInfo().getName())
                     .build();
         }
 
@@ -122,6 +124,7 @@ public class ReviewDto {
                     .createdAt(childCareReview.getCreatedAt())
                     .targetType(ChildInfoType.CHILDCAREINFO.getDetail())
                     .targetId(childCareReview.getChildCareInfo().getId())
+                    .targetName(childCareReview.getChildCareInfo().getName())
                     .build();
         }
     }
