@@ -99,7 +99,7 @@ public class AccountService {
             String name = (String) properties.get("nickname");
             String profileImage = (String) properties.get("profile_image");
             Account kakaoAccount;
-
+            checkEmail(email, name);
             if (!accountRepository.existsByEmail(email)) {
                 kakaoAccount = Account.toEntity(name, email, SocialType.KAKAO, profileImage);
                 accountRepository.save(kakaoAccount);
@@ -188,6 +188,20 @@ public class AccountService {
         } catch (IOException e) {
             throw new RuntimeException("API 응답을 읽는데 실패했습니다.", e);
         }
+    }
+
+    public String checkEmail(String email, String name) {
+        if (email == null || email.equals("")) {
+            int i = 0;
+            while(true) {
+                email = name + i + "@seoulbomo.com";
+                if(!accountRepository.existsByEmail(email)) {
+                    break;
+                }
+                i++;
+            }
+        }
+        return email;
     }
 
     public Account getCurrentAccount() {
