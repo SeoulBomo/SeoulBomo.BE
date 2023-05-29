@@ -1,6 +1,6 @@
 package SeoulBomo.SeoulBomoBe.domain.childCenterInfo.model;
 
-import SeoulBomo.SeoulBomoBe.common.Borough;
+import SeoulBomo.SeoulBomoBe.common.model.Borough;
 import SeoulBomo.SeoulBomoBe.common.model.BaseEntity;
 import SeoulBomo.SeoulBomoBe.domain.like.model.ChildCenterLike;
 import SeoulBomo.SeoulBomoBe.domain.review.model.ChildCenterReview;

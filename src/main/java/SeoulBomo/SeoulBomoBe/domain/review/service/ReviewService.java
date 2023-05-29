@@ -1,6 +1,6 @@
 package SeoulBomo.SeoulBomoBe.domain.review.service;
 
-import SeoulBomo.SeoulBomoBe.common.ChildInfoType;
+import SeoulBomo.SeoulBomoBe.common.model.ChildInfoType;
 import SeoulBomo.SeoulBomoBe.common.exception.StatusCode;
 import SeoulBomo.SeoulBomoBe.domain.account.model.Account;
 import SeoulBomo.SeoulBomoBe.domain.account.repository.AccountRepository;

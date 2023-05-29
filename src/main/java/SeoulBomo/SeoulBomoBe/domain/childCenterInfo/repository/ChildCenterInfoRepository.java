@@ -1,6 +1,6 @@
 package SeoulBomo.SeoulBomoBe.domain.childCenterInfo.repository;
 
-import SeoulBomo.SeoulBomoBe.common.Borough;
+import SeoulBomo.SeoulBomoBe.common.model.Borough;
 import SeoulBomo.SeoulBomoBe.domain.childCenterInfo.model.CenterType;
 import SeoulBomo.SeoulBomoBe.domain.childCenterInfo.model.ChildCenterInfo;
 import org.springframework.data.domain.Page;

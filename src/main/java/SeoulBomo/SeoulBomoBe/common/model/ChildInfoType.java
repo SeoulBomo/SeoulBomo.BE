@@ -1,4 +1,4 @@
-package SeoulBomo.SeoulBomoBe.common;
+package SeoulBomo.SeoulBomoBe.common.model;
 
 import lombok.Getter;
 

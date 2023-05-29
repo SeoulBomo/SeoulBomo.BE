@@ -1,6 +1,6 @@
 package SeoulBomo.SeoulBomoBe.domain.review.dto;
 
-import SeoulBomo.SeoulBomoBe.common.ChildInfoType;
+import SeoulBomo.SeoulBomoBe.common.model.ChildInfoType;
 import SeoulBomo.SeoulBomoBe.domain.account.model.Account;
 import SeoulBomo.SeoulBomoBe.domain.childCareInfo.model.ChildCareInfo;
 import SeoulBomo.SeoulBomoBe.domain.childCenterInfo.model.ChildCenterInfo;

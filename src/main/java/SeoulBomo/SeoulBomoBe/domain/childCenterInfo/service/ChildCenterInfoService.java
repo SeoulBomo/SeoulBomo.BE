@@ -1,6 +1,6 @@
 package SeoulBomo.SeoulBomoBe.domain.childCenterInfo.service;
 
-import SeoulBomo.SeoulBomoBe.common.Borough;
+import SeoulBomo.SeoulBomoBe.common.model.Borough;
 import SeoulBomo.SeoulBomoBe.common.dto.PageResponse;
 import SeoulBomo.SeoulBomoBe.common.exception.StatusCode;
 import SeoulBomo.SeoulBomoBe.domain.childCareInfo.model.ChildCareInfo;
