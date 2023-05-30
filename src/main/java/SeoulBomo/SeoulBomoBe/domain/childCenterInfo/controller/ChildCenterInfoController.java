@@ -40,7 +40,6 @@ public class ChildCenterInfoController {
             @RequestParam("keyword") String keyword
     ) {
         PageResponse<ChildCenterKeywordListResponse> result = childCenterInfoService.findKeywordCenterList(pageable, keyword);
-
         return new ResponseEntity(result, HttpStatus.OK);
     }
 }

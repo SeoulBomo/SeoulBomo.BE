@@ -65,6 +65,9 @@ public class ChildCenterInfoService {
     }
 
     public PageResponse<ChildCenterKeywordListResponse> findKeywordCenterList(Pageable pageable, String keyword) {
+        if(keyword==null){
+            return PageResponse.of(null);
+        }
         return PageResponse.of(childCenterInfoRepository.findAllByAddressORNameContaining(pageable, keyword).map(ChildCenterKeywordListResponse::of));
     }
 
