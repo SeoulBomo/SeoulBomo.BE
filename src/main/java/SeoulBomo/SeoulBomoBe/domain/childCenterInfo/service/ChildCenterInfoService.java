@@ -65,10 +65,11 @@ public class ChildCenterInfoService {
     }
 
     public PageResponse<ChildCenterKeywordListResponse> findKeywordCenterList(Pageable pageable, String keyword) {
-        if(keyword==null){
-            return PageResponse.of(null);
+        if(keyword.isBlank() || keyword == null || keyword.isEmpty() || keyword.equals("")){
+            return PageResponse.of(childCenterInfoRepository.findAllByAddressORNameContaining(pageable, null).map(ChildCenterKeywordListResponse::of));
+        } else {
+            return PageResponse.of(childCenterInfoRepository.findAllByAddressORNameContaining(pageable, keyword).map(ChildCenterKeywordListResponse::of));
         }
-        return PageResponse.of(childCenterInfoRepository.findAllByAddressORNameContaining(pageable, keyword).map(ChildCenterKeywordListResponse::of));
     }
 
     public ChildCenterInfo findChildCenterInfo(Long childCenterInfoId) {
