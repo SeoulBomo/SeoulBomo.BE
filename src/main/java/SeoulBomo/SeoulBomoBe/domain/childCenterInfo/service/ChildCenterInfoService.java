@@ -44,10 +44,14 @@ public class ChildCenterInfoService {
     }
 
     public List<Object> searchKeywordLists(String keyword) {
+        List<Object> lists = new ArrayList<>();
+        if(keyword.isBlank() || keyword == null || keyword.isEmpty() || keyword.equals("")){
+            return lists;
+        }
+
         List<ChildCenterInfo> inCenterInfoList = childCenterInfoRepository.findTop3ByAddressORNameContaining(keyword);
         List<ChildCareInfo> inCareInfoList = childCareInfoRepository.findTop3ByAddressORNameContaining(keyword);
 
-        List<Object> lists = new ArrayList<>();
         lists.add(inCenterInfoList);
         lists.add(inCareInfoList);
 
