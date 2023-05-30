@@ -24,6 +24,5 @@ public interface ChildCenterLikeRepository extends JpaRepository<ChildCenterLike
     @Query(value = "SELECT count(case when deleted = 'false' then 1 end) FROM child_center_like WHERE child_center_info_id = :centerId", nativeQuery = true)
     Long countByChildCenterInfo(Long centerId);
 
-    @Query(value = "SELECT * FROM child_center_like WHERE deleted = false", nativeQuery = true)
-    List<ChildCenterLike> findByIdAndDeletedFalse(Long userId);
+    List<ChildCenterLike> findAllByAccountIdAndDeleted(Long userId, Boolean deleted);
 }

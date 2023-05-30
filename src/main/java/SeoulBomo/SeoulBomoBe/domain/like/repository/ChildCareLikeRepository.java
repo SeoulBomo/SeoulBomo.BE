@@ -1,8 +1,6 @@
 package SeoulBomo.SeoulBomoBe.domain.like.repository;
 
-import SeoulBomo.SeoulBomoBe.domain.childCareInfo.model.ChildCareInfo;
 import SeoulBomo.SeoulBomoBe.domain.like.model.ChildCareLike;
-import SeoulBomo.SeoulBomoBe.domain.like.model.ChildCenterLike;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -26,7 +24,6 @@ public interface ChildCareLikeRepository extends JpaRepository<ChildCareLike, Lo
     @Query(value = "SELECT count(case when deleted = 'false' then 1 end) FROM child_care_like WHERE child_care_info_id = :infoId", nativeQuery = true)
     Long countByChildCareInfo(Long infoId);
 
-    @Query(value = "SELECT * FROM child_care_like WHERE deleted = false", nativeQuery = true)
-    List<ChildCareLike> findByIdAndDeletedFalse(Long userId);
+    List<ChildCareLike> findAllByAccountIdAndDeleted(Long userId, Boolean deleted);
 
 }

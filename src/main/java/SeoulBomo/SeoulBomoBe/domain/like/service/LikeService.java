@@ -98,17 +98,18 @@ public class LikeService {
     }
 
     public List<Object> getLikeList(Long userId) {
-        List<ChildCenterLike> centerLikeList = childCenterLikeRepository.findByIdAndDeletedFalse(userId);
+        List<ChildCenterLike> centerLikeList = childCenterLikeRepository.findAllByAccountIdAndDeleted(userId, false);
         List<ChildCenterInfo> centerList = new ArrayList<>();
-
+        System.out.println(centerLikeList.size());
         for(ChildCenterLike info : centerLikeList){
             ChildCenterInfo childCenterInfo = childCenterInfoRepository.findById(info.getChildCenterInfo().getId())
                     .orElseThrow(() -> new ChildCenterInfoException(StatusCode.NOT_FOUND_CHILDCENTER));
             centerList.add(childCenterInfo);
         }
 
-        List<ChildCareLike> careLikeList = childCareLikeRepository.findByIdAndDeletedFalse(userId);
+        List<ChildCareLike> careLikeList = childCareLikeRepository.findAllByAccountIdAndDeleted(userId, false);
         List<ChildCareInfo> careInfoList = new ArrayList<>();
+        System.out.println(careLikeList.size());
 
         for(ChildCareLike info : careLikeList){
             ChildCareInfo childCareInfo = childCareInfoRepository.findById(info.getChildCareInfo().getId())
