@@ -156,7 +156,7 @@ public class DummyData {
                     .build();
             childCareReviewRepository.save(childCareReview);
         }
-        for (int i=1; i < 500; i++) {
+        for (int i = 1; i < 500; i++) {
             ChildCenterReview childCenterReview = ChildCenterReview.builder()
                     .account(account10)
                     .childCenterInfo(childCenterInfoRepository.findById((long) i).get())
@@ -164,7 +164,7 @@ public class DummyData {
                     .build();
             childCenterReviewRepository.save(childCenterReview);
         }
-        for (int i=600; i < 1200; i++) {
+        for (int i = 600; i < 1200; i++) {
             ChildCenterReview childCenterReview = ChildCenterReview.builder()
                     .account(account1)
                     .childCenterInfo(childCenterInfoRepository.findById((long) i).get())
@@ -172,7 +172,7 @@ public class DummyData {
                     .build();
             childCenterReviewRepository.save(childCenterReview);
         }
-        for (int i=1; i < 500; i++) {
+        for (int i = 1; i < 500; i++) {
             ChildCenterReview childCenterReview = ChildCenterReview.builder()
                     .account(account10)
                     .childCenterInfo(childCenterInfoRepository.findById((long) i).get())
@@ -180,7 +180,7 @@ public class DummyData {
                     .build();
             childCenterReviewRepository.save(childCenterReview);
         }
-        for (int i=1; i < 50; i = i + 2) {
+        for (int i = 1; i < 50; i = i + 2) {
             ChildCenterReview childCenterReview = ChildCenterReview.builder()
                     .account(account2)
                     .childCenterInfo(childCenterInfoRepository.findById((long) i).get())
@@ -189,7 +189,7 @@ public class DummyData {
             childCenterReviewRepository.save(childCenterReview);
         }
 
-        for (int i=1; i < 50; i = i + 2) {
+        for (int i = 1; i < 50; i = i + 2) {
             ChildCenterReview childCenterReview = ChildCenterReview.builder()
                     .account(account3)
                     .childCenterInfo(childCenterInfoRepository.findById((long) i).get())
@@ -198,6 +198,7 @@ public class DummyData {
             childCenterReviewRepository.save(childCenterReview);
         }
     }
+
     public void LikeDummy() {
         if (childCareLikeRepository.count() > 0 && childCenterLikeRepository.count() > 0) {
             log.info("[02] 좋아요가 이미 존재합니다");
