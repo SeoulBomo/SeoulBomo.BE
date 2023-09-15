@@ -147,4 +147,3 @@ https://data.seoul.go.kr/dataList/OA-20970/S/1/datasetView.do
 # IA
   <img width="912" alt="image" src="https://github.com/SeoulBomo/SeoulBomo.FE/assets/49053676/83090285-1fc8-43a0-aaae-c26a08657264"/>
   
-- [FE 진행상황 칸반](https://conscious-beryl-fee.notion.site/34010d49494a462b9d3e4cde22db5442?pvs=4)
